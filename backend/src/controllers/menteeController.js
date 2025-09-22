@@ -1,5 +1,6 @@
 // src/controllers/menteeController.js
 const MenteeProfile = require('../models/MenteeProfile');
+const User = require('../models/User');
 
 // Apply as mentee (only members)
 exports.apply = async (req, res) => {
@@ -15,6 +16,17 @@ exports.apply = async (req, res) => {
     return res.status(400).json({ message: 'You already applied as a mentee' });
   }
 
+  // ✅ Eligibility check
+  const user = await User.findById(req.user.id);
+  if (!user) return res.status(404).json({ message: 'User not found' });
+
+  const eligibleStages = ['NCA Candidate', 'Articling']; // tweak as needed
+  if (!eligibleStages.includes(user.licensingStage) || user.location.toLowerCase() !== 'canada') {
+    return res.status(403).json({ 
+      message: 'You must be internationally trained and based in Canada to apply as a mentee' 
+    });
+  }
+
   const mentee = new MenteeProfile({
     user: req.user.id,
     goals,
@@ -25,6 +37,7 @@ exports.apply = async (req, res) => {
 
   res.status(201).json({ message: 'Application submitted', mentee });
 };
+
 
 // Get my mentee application
 exports.myApplication = async (req, res) => {

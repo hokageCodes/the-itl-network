@@ -12,9 +12,11 @@ const menteeSchema = new mongoose.Schema({
   needs: { type: String, required: true },
   status: { 
     type: String, 
-    enum: ['pending', 'approved', 'rejected'], 
+    enum: ['pending', 'active', 'completed', 'rejected'], 
     default: 'pending' 
-  }
+  },
+  programEndDate: { type: Date }, // for cron to track expiry
+  assignedMentor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('MenteeProfile', menteeSchema);

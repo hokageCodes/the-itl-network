@@ -15,4 +15,13 @@ exports.toggleUserRules = [
 exports.deleteUserRules = [
   param('id').isMongoId().withMessage('Invalid user ID')
 ];
- 
+
+// Mentor assignment rules
+exports.assignMentorRules = [
+  body('mentorId').isMongoId().withMessage('Valid mentorId required'),
+  body('menteeId').isMongoId().withMessage('Valid menteeId required'),
+];
+
+exports.unassignMentorRules = [
+  body('menteeId').isMongoId().withMessage('Valid menteeId required'),
+];

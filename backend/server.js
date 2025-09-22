@@ -8,16 +8,45 @@ const authRoutes = require('./src/routes/authRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
 const errorHandler = require('./src/middleware/errorHandler');
 const applicationRoutes = require('./src/routes/applicationRoutes');
+const membershipRoutes = require('./src/routes/membershipRoutes');
+const mentorRoutes = require('./src/routes/mentorRoutes');
+// Jobs
+require('./src/jobs/expireMentorship');
+
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: true, credentials: true }));
+
+
+const allowedOrigins = [
+  "http://localhost:3000", // Next.js dev
+  "http://127.0.0.1:3000", // in case you use this form
+  process.env.FRONTEND_URL, // production domain, e.g. https://yourapp.com
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // allow cookies
+  })
+);
+
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/admin/applications', applicationRoutes);
+app.use('/api/membership', membershipRoutes);
+app.use('/api/mentors', mentorRoutes);
+
+
 
 
 // Health

@@ -1,7 +1,7 @@
 // src/routes/menteeRoutes.js
 const express = require('express');
 const router = express.Router();
-const menteeCtrl = require('../controllers/MenteeController');
+const menteeCtrl = require('../controllers/menteeController');
 const requireAuth = require('../middleware/authMiddleware');
 const requireRole = require('../middleware/roleMiddleware');
 
