@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "build": "npm run build"
-  },
+"scripts": {
+  "dev": "nodemon server.js", 
+  "start": "node server.js",  
+  "lint": "echo \"no lint configured\""
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
