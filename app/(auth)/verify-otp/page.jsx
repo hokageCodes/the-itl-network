@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import api from "../../../lib/api";
 import { useAuth } from "../../../context/AuthContext";
 
-export default function VerifyOtpPage() {
+function VerifyOtpForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setAccessTokenDirect } = useAuth();
@@ -50,5 +51,13 @@ export default function VerifyOtpPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function VerifyOtpPage() {
+  return (
+    <Suspense fallback={<div className="text-center p-10">Loading...</div>}>
+      <VerifyOtpForm />
+    </Suspense>
   );
 }
