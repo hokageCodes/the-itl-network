@@ -10,7 +10,7 @@ cron.schedule('0 0 * * *', async () => {
 
   try {
     const expired = await MenteeProfile.find({
-      programEndDate: { $lte: now },
+      programEndDate: { $lte: now }, 
       status: 'active'
     });
 
