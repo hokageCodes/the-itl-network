@@ -1,257 +1,379 @@
 "use client";
 import Link from "next/link";
-import { useAuth } from "../../../context/AuthContext";
-import api from "../../../lib/api";
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useAuth } from "../../../context/AuthContext";
+import {
+  ChevronDown,
+  User,
+  Settings,
+  LogOut,
+  Menu,
+  X,
+} from "lucide-react";
 
 export default function Navbar() {
-  const { user, setAccessToken, setUser } = useAuth();
-  const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const { user, logout, loading } = useAuth(); // ✅ Use real auth context
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileDropdowns, setMobileDropdowns] = useState({});
 
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      setScrolled(isScrolled);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await api.post("/auth/logout");
-    } catch (err) {
-      console.error("Logout error", err);
-    } finally {
-      setAccessToken(null);
-      setUser(null);
-      router.push("/");
+  const navigationGroups = [
+    {
+      label: "Discover",
+      items: [
+        { href: "/", label: "Home" },
+        { href: "/about", label: "About" },
+        { href: "/events", label: "Events" },
+        { href: "/blog", label: "Blog" },
+      ],
+    },
+    {
+      label: "Community",
+      auth: true,
+      items: [
+        { href: "/membership", label: "Membership" },
+        { href: "/mentorship", label: "Mentorship" },
+      ],
+    },
+    {
+      label: "Support",
+      items: [
+        { href: "/resources", label: "Resources", auth: true },
+        { href: "/donate", label: "Donate" },
+        { href: "/contact", label: "Contact" },
+      ],
+    },
+  ];
+
+  const handleAuthClick = (href) => {
+    if (!user) {
+      window.location.href = `/login?redirect=${encodeURIComponent(href)}`;
     }
   };
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About Us" },
-    { href: "/membership", label: "Membership" },
-    { href: "/mentorship", label: "Mentorship" },
-    { href: "/resources", label: "Resources" },
-    { href: "/events", label: "Events" },
-    { href: "/blog", label: "Blog" },
-    { href: "/donate", label: "Donate" },
-    { href: "/contact", label: "Contact" },
-  ];
+  const toggleMobileDropdown = (label) => {
+    setMobileDropdowns((prev) => ({
+      ...prev,
+      [label]: !prev[label],
+    }));
+  };
+
+  // ✅ Show loading state while auth is being determined
+  if (loading) {
+    return (
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black" style={{ minHeight: '64px' }}>
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          <div className="flex items-center justify-between min-h-[64px]">
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center">
+                <img
+                  src="/itl-logo-nobg.png"
+                  alt="Logo"
+                  className="h-5 w-auto object-contain lg:-ml-24 -ml-14"
+                  style={{ 
+                    height: '90px',
+                    maxWidth: '200px',
+                  }}
+                  width="auto"
+                  height="20"
+                />
+              </Link>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="animate-pulse bg-gray-600 h-10 w-32 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    );
+  }
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/50' 
-        : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-5">
-        <div className="flex items-center justify-between h-20 lg:h-24">
-          
-          {/* Logo - Far Left */}
-          <Link href="/" className="flex items-center group flex-shrink-0">
-            <div className="relative transition-all duration-300">
-              <Image
-                src="/itl-logo-nobg.png" // Replace with your actual logo path
-                alt="ITL Network Logo"
-                width={120}
-                height={37}
-                className="h-8 w-auto sm:h-10 lg:h-16 group-hover:scale-105 transition-transform duration-300"
-                priority
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white border-b border-black/10" : "bg-black"
+      }`}
+      style={{ minHeight: '64px' }}
+    >
+      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="flex items-center justify-between min-h-[64px]">
+          {/* Logo - Left */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
+              <img
+                src={scrolled ? "/itl-logo-nobg.png" : "/itl-logo-nobg.png"}
+                alt="Logo"
+                className="h-5 w-auto object-contain lg:-ml-24 -ml-14"
+                style={{ 
+                  height: '90px',
+                  maxWidth: '200px',
+                }}
+                width="auto"
+                height="20"
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
 
-          {/* Navigation Links - Center */}
-          <div className="hidden lg:flex items-center justify-center flex-1 mx-8">
-            <div className="flex items-center space-x-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#dd9933] rounded-lg transition-all duration-200 relative group whitespace-nowrap"
-                >
-                  {link.label}
-                  <span className="absolute inset-x-3 bottom-1 h-0.5 bg-[#dd9933] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
-                </Link>
+          {/* Desktop Navigation - Center */}
+          <div className="hidden lg:flex items-center justify-center flex-1 max-w-3xl mx-auto">
+            <div className="flex items-center space-x-8">
+              {navigationGroups.map((group) => (
+                <div key={group.label} className="relative group">
+                  <button
+                    className={`flex items-center space-x-1 px-4 py-3 min-h-[44px] ${
+                      scrolled ? "text-black" : "text-white"
+                    } hover:text-[#DD9933] transition-colors font-medium`}
+                  >
+                    <span>{group.label}</span>
+                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                  </button>
+
+                  {/* Dropdown */}
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div
+                      className={`${
+                        scrolled ? "bg-white" : "bg-black"
+                      } border border-black/10 rounded-lg shadow-lg overflow-hidden`}
+                    >
+                      {group.items.map((item, index) => (
+                        <div key={item.href}>
+                          {item.auth && !user ? (
+                            <button
+                              onClick={() => handleAuthClick(item.href)}
+                              className={`w-full text-left px-4 py-3 min-h-[44px] ${
+                                scrolled
+                                  ? "text-black hover:text-[#DD9933] hover:bg-black/5"
+                                  : "text-white hover:text-[#DD9933] hover:bg-white/5"
+                              } transition-colors ${
+                                index !== group.items.length - 1 ? "border-b border-black/5" : ""
+                              }`}
+                            >
+                              {item.label}
+                            </button>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              className={`block px-4 py-3 min-h-[44px] ${
+                                scrolled
+                                  ? "text-black hover:text-[#DD9933] hover:bg-black/5"
+                                  : "text-white hover:text-[#DD9933] hover:bg-white/5"
+                              } transition-colors ${
+                                index !== group.items.length - 1 ? "border-b border-black/5" : ""
+                              }`}
+                            >
+                              {item.label}
+                            </Link>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
 
-          {/* Auth Section - Far Right */}
-          <div className="flex items-center space-x-3 flex-shrink-0">
+          {/* Right Section - CTA & User */}
+          <div className="flex items-center space-x-3">
             {!user ? (
-              <div className="flex items-center space-x-2">
+              <>
                 <Link
                   href="/login"
-                  className="hidden sm:flex px-5 py-2.5 text-sm font-semibold text-gray-700 hover:text-[#dd9933] border border-gray-300 rounded-lg hover:border-[#dd9933] transition-all duration-200"
+                  className={`hidden sm:block px-4 py-2 min-h-[44px] border rounded transition flex items-center ${
+                    scrolled
+                      ? "text-black border-black/20 hover:text-[#DD9933] hover:border-[#DD9933]"
+                      : "text-white border-white/20 hover:text-[#DD9933] hover:border-[#DD9933]"
+                  }`}
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="px-5 py-2.5 text-sm font-semibold bg-gradient-to-r from-[#dd9933] to-[#cc8822] text-white rounded-lg hover:from-[#cc8822] hover:to-[#bb7711] transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="px-4 py-2 min-h-[44px] bg-[#DD9933] text-black font-medium rounded hover:bg-[#c2852b] transition flex items-center whitespace-nowrap"
                 >
-                  Get Started
+                  Become a member
                 </Link>
-              </div>
+              </>
             ) : (
               <div className="relative">
                 <button
-                  onClick={() => setOpen(!open)}
-                  className="flex items-center space-x-3 px-4 py-2.5 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-lg hover:from-[#dd9933] hover:to-[#cc8822] transition-all duration-300 shadow-lg hover:shadow-xl group"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className={`flex items-center space-x-2 px-3 py-2 min-h-[44px] border rounded transition ${
+                    scrolled
+                      ? "text-black border-black/20 hover:text-[#DD9933]"
+                      : "text-white border-white/20 hover:text-[#DD9933]"
+                  }`}
                 >
-                  <div className="w-8 h-8 bg-gradient-to-br from-[#dd9933] to-[#cc8822] rounded-full flex items-center justify-center text-sm font-bold text-white shadow-inner">
-                    {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
+                  <div className="w-8 h-8 bg-[#DD9933] text-black font-bold rounded-full flex items-center justify-center flex-shrink-0">
+                    {/* ✅ Use firstName or username from real user object */}
+                    {user.firstName 
+                      ? user.firstName.charAt(0).toUpperCase() 
+                      : user.username?.charAt(0).toUpperCase() || 'U'
+                    }
                   </div>
-                  <span className="hidden sm:block font-medium">
-                    {user.username || 'Dashboard'}
+                  <span className="hidden sm:block">
+                    {user.firstName || user.username}
                   </span>
-                  <svg
-                    className={`w-4 h-4 transform transition-transform duration-200 ${
-                      open ? 'rotate-180' : ''
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform flex-shrink-0 ${
+                      dropdownOpen ? "rotate-180" : ""
                     }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  />
                 </button>
-                
-                {open && (
-                  <div className="absolute right-0 mt-3 w-56 bg-white/95 backdrop-blur-md shadow-2xl rounded-xl border border-gray-200/50 overflow-hidden z-50">
-                    <div className="p-4 bg-gradient-to-r from-[#dd9933]/10 to-[#cc8822]/10 border-b border-gray-100">
-                      <p className="text-sm font-semibold text-gray-900">Welcome back!</p>
-                      <p className="text-xs text-gray-600 truncate">{user.username}</p>
-                    </div>
-                    <div className="py-2">
-                      <Link
-                        href="/dashboard"
-                        className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#dd9933] transition-all duration-200"
-                        onClick={() => setOpen(false)}
-                      >
-                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z" />
-                        </svg>
-                        Dashboard
-                      </Link>
-                      <Link
-                        href="/profile"
-                        className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#dd9933] transition-all duration-200"
-                        onClick={() => setOpen(false)}
-                      >
-                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        Profile
-                      </Link>
-                      <div className="h-px bg-gray-100 my-2"></div>
-                      <button
-                        onClick={() => {
-                          handleLogout();
-                          setOpen(false);
-                        }}
-                        className="flex items-center w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-all duration-200"
-                      >
-                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                        Sign Out
-                      </button>
-                    </div>
+
+                {dropdownOpen && (
+                  <div
+                    className={`absolute right-0 mt-2 w-48 ${
+                      scrolled ? "bg-white" : "bg-black"
+                    } border border-black/10 rounded-lg shadow-lg overflow-hidden z-50`}
+                  >
+                    <Link
+                      href="/dashboard"
+                      className={`flex items-center px-4 py-3 min-h-[44px] ${
+                        scrolled
+                          ? "text-black hover:text-[#DD9933] hover:bg-black/5"
+                          : "text-white hover:text-[#DD9933] hover:bg-white/5"
+                      } transition border-b border-black/5`}
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      <User className="w-4 h-4 mr-3 flex-shrink-0" /> Dashboard
+                    </Link>
+                    <Link
+                      href="/profile"
+                      className={`flex items-center px-4 py-3 min-h-[44px] ${
+                        scrolled
+                          ? "text-black hover:text-[#DD9933] hover:bg-black/5"
+                          : "text-white hover:text-[#DD9933] hover:bg-white/5"
+                      } transition border-b border-black/5`}
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      <Settings className="w-4 h-4 mr-3 flex-shrink-0" /> Settings
+                    </Link>
+                    <button
+                      onClick={() => {
+                        logout(); // ✅ Use real logout function
+                        setDropdownOpen(false);
+                      }}
+                      className="flex items-center w-full px-4 py-3 min-h-[44px] text-red-500 hover:text-red-400 hover:bg-red-500/10 transition"
+                    >
+                      <LogOut className="w-4 h-4 mr-3 flex-shrink-0" /> Sign Out
+                    </button>
                   </div>
                 )}
               </div>
             )}
 
-            {/* Enhanced Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <button
-              onClick={() => setOpen(!open)}
-              className="lg:hidden relative w-10 h-10 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-lg hover:from-[#dd9933] hover:to-[#cc8822] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center ml-3"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className={`lg:hidden p-2 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+                scrolled
+                  ? "text-black hover:text-[#DD9933]"
+                  : "text-white hover:text-[#DD9933]"
+              }`}
             >
-              <div className="w-6 h-5 relative flex flex-col justify-between">
-                <span className={`h-0.5 w-full bg-current transform transition-all duration-300 ${open ? 'rotate-45 translate-y-2' : ''}`}></span>
-                <span className={`h-0.5 w-full bg-current transition-all duration-300 ${open ? 'opacity-0' : ''}`}></span>
-                <span className={`h-0.5 w-full bg-current transform transition-all duration-300 ${open ? '-rotate-45 -translate-y-2' : ''}`}></span>
-              </div>
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Enhanced Mobile Nav */}
-        <div className={`lg:hidden overflow-hidden transition-all duration-300 ${open ? 'max-h-screen pb-6' : 'max-h-0'}`}>
-          <div className="pt-4 space-y-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-[#dd9933] hover:bg-gray-50 rounded-lg transition-all duration-200"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            
-            {!user ? (
-              <div className="pt-4 space-y-2 border-t border-gray-200">
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div
+          className={`lg:hidden ${
+            scrolled ? "bg-white" : "bg-black"
+          } border-t border-black/10`}
+        >
+          <div className="px-4 py-4 max-w-7xl mx-auto">
+            <div className="space-y-2">
+              {navigationGroups.map((group) => (
+                <div key={group.label}>
+                  <button
+                    onClick={() => toggleMobileDropdown(group.label)}
+                    className={`w-full flex justify-between items-center px-4 py-3 min-h-[44px] font-medium rounded ${
+                      scrolled ? "text-black" : "text-white"
+                    } hover:text-[#DD9933] hover:bg-black/5 transition-colors`}
+                  >
+                    {group.label}
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform flex-shrink-0 ${
+                        mobileDropdowns[group.label] ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {mobileDropdowns[group.label] && (
+                    <div className="ml-4 mt-1 space-y-1">
+                      {group.items.map((item) => (
+                        <div key={item.href}>
+                          {item.auth && !user ? (
+                            <button
+                              onClick={() => {
+                                handleAuthClick(item.href);
+                                setMobileOpen(false);
+                              }}
+                              className={`block w-full text-left px-4 py-3 min-h-[44px] rounded ${
+                                scrolled
+                                  ? "text-black hover:text-[#DD9933] hover:bg-black/5"
+                                  : "text-white hover:text-[#DD9933] hover:bg-white/5"
+                              } transition-colors`}
+                            >
+                              {item.label}
+                            </button>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              onClick={() => setMobileOpen(false)}
+                              className={`block px-4 py-3 min-h-[44px] rounded ${
+                                scrolled
+                                  ? "text-black hover:text-[#DD9933] hover:bg-black/5"
+                                  : "text-white hover:text-[#DD9933] hover:bg-white/5"
+                              } transition-colors`}
+                            >
+                              {item.label}
+                            </Link>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {!user && (
+              <div className="pt-4 mt-4 border-t border-black/10 space-y-3">
                 <Link
                   href="/login"
-                  className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-[#dd9933] hover:bg-gray-50 rounded-lg transition-all duration-200"
-                  onClick={() => setOpen(false)}
+                  onClick={() => setMobileOpen(false)}
+                  className={`block px-4 py-3 min-h-[44px] text-center border rounded transition ${
+                    scrolled
+                      ? "text-black border-black/20 hover:text-[#DD9933] hover:border-[#DD9933]"
+                      : "text-white border-white/20 hover:text-[#DD9933] hover:border-[#DD9933]"
+                  }`}
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="block px-4 py-3 text-base font-semibold bg-gradient-to-r from-[#dd9933] to-[#cc8822] text-white rounded-lg hover:from-[#cc8822] hover:to-[#bb7711] transition-all duration-200 text-center"
-                  onClick={() => setOpen(false)}
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-3 min-h-[44px] text-center bg-[#DD9933] text-black font-medium rounded hover:bg-[#c2852b] transition"
                 >
-                  Get Started
+                  Become a member
                 </Link>
-              </div>
-            ) : (
-              <div className="pt-4 space-y-2 border-t border-gray-200">
-                <div className="px-4 py-2 bg-gradient-to-r from-[#dd9933]/10 to-[#cc8822]/10 rounded-lg">
-                  <p className="text-sm font-semibold text-gray-900">Signed in as</p>
-                  <p className="text-sm text-gray-600">{user.username}</p>
-                </div>
-                <Link
-                  href="/dashboard"
-                  className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-[#dd9933] hover:bg-gray-50 rounded-lg transition-all duration-200"
-                  onClick={() => setOpen(false)}
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  href="/profile"
-                  className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-[#dd9933] hover:bg-gray-50 rounded-lg transition-all duration-200"
-                  onClick={() => setOpen(false)}
-                >
-                  Profile
-                </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setOpen(false);
-                  }}
-                  className="block w-full text-left px-4 py-3 text-base font-medium text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
-                >
-                  Sign Out
-                </button>
               </div>
             )}
           </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
