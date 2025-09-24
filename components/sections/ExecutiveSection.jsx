@@ -100,32 +100,34 @@ export default function ExecutiveTeamSection() {
         </div>
 
         {/* Mobile Layout */}
-        <div className="lg:hidden w-full flex flex-col gap-6">
-          {executives.map((executive) => (
-            <div
-              key={executive.id}
-              className="relative w-full h-[400px] rounded-[10px] overflow-hidden"
-            >
-              <Suspense fallback={<div className="w-full h-full bg-gray-200" />}>
-                <LazyImage src={executive.image} alt={`${executive.name} - ${executive.role}`} />
-              </Suspense>
+        {/* Mobile Layout */}
+<div className="lg:hidden w-full flex flex-col gap-6">
+  {executives.map((executive) => (
+    <div
+      key={executive.id}
+      className="relative w-full h-[400px] rounded-[10px] overflow-hidden"
+    >
+      <Suspense fallback={<div className="w-full h-full bg-gray-200" />}>
+        <LazyImage src={executive.image} alt={`${executive.name} - ${executive.role}`} />
+      </Suspense>
 
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="space-y-3">
-                  <div>
-                    <h3 className="text-white font-bold text-xl mb-1">{executive.name}</h3>
-                    <p className="text-brand-gold font-semibold text-sm uppercase tracking-wide">
-                      {executive.role}
-                    </p>
-                  </div>
-                  <p className="text-gray-200 text-sm leading-relaxed">
-                    {executive.bio}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+      <div className="absolute bottom-0 left-0 right-0">
+        <div className="space-y-3 bg-black bg-opacity-90 p-8">
+          <div>
+            <h3 className="text-white font-bold text-xl mb-1">{executive.name}</h3>
+            <p className="text-brand-gold font-semibold text-sm uppercase tracking-wide">
+              {executive.role}
+            </p>
+          </div>
+          <p className="text-gray-200 text-sm leading-relaxed">
+            {executive.bio}
+          </p>
         </div>
+      </div>
+    </div>
+  ))}
+</div>
+
       </div>
 
       <style jsx>{`
