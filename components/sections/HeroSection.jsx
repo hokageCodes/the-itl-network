@@ -11,17 +11,27 @@ export default function ITLHeroSection() {
   const ctaRef = useRef(null);
 
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides = ["/slides/1.png", "/slides/2.png", "//slides/3.png", "/slides/4.png", "/slides/5.png", "/slides/6.png", "/slides/7.png", "/slides/8.png", "/slides/9.png"];
+  
+  const slides = [
+    "/slides/1.png",
+    "/slides/2.png",
+    "/slides/3.png",
+    "/slides/4.png",
+    "/slides/5.png",
+    "/slides/6.png",
+    "/slides/7.png",
+    "/slides/8.png",
+    "/slides/9.png"
+  ];
 
   useEffect(() => {
     const elements = [badgeRef.current, titleRef.current, subtitleRef.current, ctaRef.current];
-
+    
     elements.forEach((element, index) => {
       if (element) {
         element.style.opacity = "0";
         element.style.transform = "translateY(30px)";
-
+        
         setTimeout(() => {
           element.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out";
           element.style.opacity = "1";
@@ -41,8 +51,8 @@ export default function ITLHeroSection() {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <div ref={heroRef} className="relative min-h-screen bg-white overflow-hidden">
-      <div className="flex min-h-screen">
+    <div ref={heroRef} className="relative h-screen bg-white overflow-hidden mb-16">
+      <div className="flex h-full">
         {/* Left Side - Text/CTA */}
         <div className="w-full lg:w-1/2 flex items-center justify-center px-6 lg:px-12 py-16">
           <div className="max-w-2xl">
@@ -52,16 +62,16 @@ export default function ITLHeroSection() {
               </span>
             </div>
 
-            <h1
-              ref={titleRef}
+            <h1 
+              ref={titleRef} 
               className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-black mb-6 leading-tight"
             >
               A Network of Internationally Trained Lawyers in{" "}
               <span className="text-yellow-600 relative">
                 Canada
-                <svg
-                  className="absolute -bottom-1 left-0 w-full h-2 text-yellow-300/60"
-                  viewBox="0 0 200 8"
+                <svg 
+                  className="absolute -bottom-1 left-0 w-full h-2 text-yellow-300/60" 
+                  viewBox="0 0 200 8" 
                   fill="currentColor"
                   preserveAspectRatio="none"
                 >
@@ -94,16 +104,20 @@ export default function ITLHeroSection() {
           </div>
         </div>
 
-        {/* Right Side - Image Slider */}
-        <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
+        {/* Right Side - Image Slider - Full Height */}
+        <div className="hidden lg:block lg:w-1/2 relative overflow-hidden h-full">
           {slides.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+              className={`absolute inset-0 w-full h-full transition-all duration-700 ease-in-out ${
                 index === currentSlide ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"
               }`}
             >
-              <img src={image} alt={`slide-${index}`} className="w-full h-full object-contain" />
+              <img 
+                src={image} 
+                alt={`slide-${index}`} 
+                className="w-full h-full object-cover bg-gray-50"
+              />
             </div>
           ))}
 
@@ -114,6 +128,7 @@ export default function ITLHeroSection() {
           >
             <ChevronLeft className="w-7 h-7 text-gray-800" />
           </button>
+
           <button
             onClick={nextSlide}
             className="absolute right-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
@@ -138,7 +153,7 @@ export default function ITLHeroSection() {
 
       {/* Mobile Slider */}
       <div className="lg:hidden px-4 pb-16">
-        <div className="relative w-full h-[400px] overflow-hidden rounded-2xl shadow-xl">
+        <div className="relative w-full h-[400px] overflow-hidden rounded-2xl shadow-xl bg-gray-50">
           {slides.map((image, index) => (
             <div
               key={index}
@@ -146,7 +161,11 @@ export default function ITLHeroSection() {
                 index === currentSlide ? "opacity-100" : "opacity-0"
               }`}
             >
-              <img src={image} alt={`slide-${index}`} className="w-full h-full object-contain" />
+              <img 
+                src={image} 
+                alt={`slide-${index}`} 
+                className="w-full h-full object-cover"
+              />
             </div>
           ))}
 
@@ -156,6 +175,7 @@ export default function ITLHeroSection() {
           >
             <ChevronLeft className="w-5 h-5 text-gray-800" />
           </button>
+
           <button
             onClick={nextSlide}
             className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 rounded-full shadow-lg flex items-center justify-center"

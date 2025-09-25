@@ -81,7 +81,7 @@ export default function Navbar() {
                 <img
                   src="/Original-ITL-Logo.png"
                   alt="Logo"
-                  className="h-16 w-auto object-cover max-w-[120px] sm:max-w-[160px] lg:max-w-[200px]"
+                  className="h-16 w-auto object-contain max-w-[120px] sm:max-w-[160px] lg:max-w-[200px]"
                   style={{
                     height: "60px",
                     maxHeight: "60px",
@@ -120,7 +120,7 @@ export default function Navbar() {
               <img
                 src="/Original-ITL - Logo-Transparent-background.png"
                 alt="Logo"
-                className="h-12 border object-cover max-w-[120px] sm:max-w-[160px] lg:max-w-[200px]"
+                className="h-12 border object-contain max-w-[120px] sm:max-w-[160px] lg:max-w-[200px]"
                 style={{
                   height: "60px",
                   maxHeight: "60px",
