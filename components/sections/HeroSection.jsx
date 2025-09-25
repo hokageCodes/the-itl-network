@@ -83,7 +83,7 @@ export default function ITLHeroSection() {
 
           {/* Stats or additional info */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto">
-            <div className="text-center">
+            {/* <div className="text-center">
               <div className="text-3xl font-bold text-black mb-2">500+</div>
               <div className="text-gray-600">Active Members</div>
             </div>
@@ -94,7 +94,7 @@ export default function ITLHeroSection() {
             <div className="text-center">
               <div className="text-3xl font-bold text-black mb-2">98%</div>
               <div className="text-gray-600">Success Rate</div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
