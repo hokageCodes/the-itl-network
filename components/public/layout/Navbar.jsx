@@ -30,6 +30,7 @@ export default function Navbar() {
       items: [
         { href: "/", label: "Home" },
         { href: "/about", label: "About" },
+        { href: "/#", label: "Our Team" },
         { href: "/events", label: "Events" },
       ],
     },
@@ -39,13 +40,16 @@ export default function Navbar() {
       items: [
         { href: "/membership", label: "Membership" },
         { href: "/mentorship", label: "Mentorship" },
+        { href: "/https://www.itlconference.ca", label: "ITL Conference" },
+        { href: "/donate", label: "Donate" },
       ],
     },
     {
-      label: "Support",
+      label: "Resources",
       items: [
-        { href: "/resources", label: "Resources", auth: true },
-        { href: "/donate", label: "Donate" },
+        { href: "##", label: "Professional Development", auth: true },
+        { href: "#", label: "ITL Manual", auth: true },
+        { href: "/resources", label: "Blog", auth: true },
         { href: "/contact", label: "Contact" },
       ],
     },
