@@ -10,8 +10,6 @@ export default function ITLHeroSection() {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const ctaRef = useRef(null);
-  const floatingBgRef = useRef([]);
-
   useEffect(() => {
     // Simple fade-in animations without GSAP
     const elements = [badgeRef.current, titleRef.current, subtitleRef.current, ctaRef.current];
@@ -28,37 +26,10 @@ export default function ITLHeroSection() {
         }, index * 150);
       }
     });
-
-    // Floating background animation
-    floatingBgRef.current.forEach((bg, index) => {
-      if (bg) {
-        const animate = () => {
-          bg.style.transition = 'transform 3s ease-in-out';
-          bg.style.transform = `translateY(${Math.sin(Date.now() / 1000 + index) * 20}px)`;
-          requestAnimationFrame(animate);
-        };
-        animate();
-      }
-    });
   }, []);
 
   return (
     <div ref={heroRef} className="relative min-h-screen bg-white overflow-hidden">
-      {/* Optimized background pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div 
-          ref={el => floatingBgRef.current[0] = el}
-          className="absolute top-20 left-10 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-xl"
-        />
-        <div 
-          ref={el => floatingBgRef.current[1] = el}
-          className="absolute top-40 right-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl"
-        />
-        <div 
-          ref={el => floatingBgRef.current[2] = el}
-          className="absolute bottom-20 left-20 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-xl"
-        />
-      </div>
 
       {/* Main content */}
       <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-48 pb-16 sm:pb-20 lg:pb-28">
