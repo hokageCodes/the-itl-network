@@ -16,7 +16,7 @@ export default function AboutSection() {
             </h2>
             <Link
               href="/about"
-              className="flex items-center w-[200px] px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] bg-brand-gold-500 text-brand-black-950 font-semibold rounded-lg sm:rounded-xl hover:bg-brand-gold-600 transition-all duration-200 whitespace-nowrap text-base shadow-gold hover:shadow-gold-lg transform hover:scale-105"
+              className="flex items-center w-[200px] px-2 sm:px-4 py-3 sm:py-4 min-h-[44px] bg-brand-gold-500 text-brand-black-950 font-semibold rounded-lg sm:rounded-xl hover:bg-brand-gold-600 transition-all duration-200 whitespace-nowrap text-base shadow-gold hover:shadow-gold-lg transform hover:scale-105"
             >
               Learn more
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -68,7 +68,7 @@ export default function AboutSection() {
           {/* Mission + Vision stacked */}
           <div className="flex flex-col gap-6">
             {/* Mission */}
-            <div className="bg-brand-gold/20 rounded-2xl p-6 flex-1 flex flex-col justify-center 
+            <div className="bg-brand-gold/20 rounded-2xl p-2 flex-1 flex flex-col justify-center 
                             transition-all duration-300 hover:scale-[1.02] hover:shadow-md animate-slide-up">
               <h3 className="text-brand-black font-bold text-lg mb-3">
                 Our Mission
@@ -85,7 +85,7 @@ export default function AboutSection() {
             </div>
 
             {/* Vision */}
-            <div className="bg-brand-gold rounded-2xl p-6 flex-1 flex flex-col justify-center 
+            <div className="bg-brand-gold rounded-2xl p-2 flex-1 flex flex-col justify-center 
                             transition-all duration-300 hover:scale-[1.02] hover:shadow-gold animate-slide-up">
               <h3 className="text-brand-white font-bold text-lg mb-3">
                 Our Vision
