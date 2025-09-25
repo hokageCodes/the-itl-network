@@ -5,76 +5,88 @@ const faqs = [
   {
     question: "What is the ITL Network?",
     answer:
-      "The ITL Network is a community of internationally trained lawyers in Canada, designed to connect, mentor, and support professionals navigating their careers.",
+      "The ITL Network is a registered not-for-profit organization that supports Internationally Trained Lawyers (ITLs) and Internationally Trained Law Graduates (ITLGs) in Canada. We provide mentorship, professional development, networking opportunities, and resources to help members succeed at every stage of their legal careers. Our flagship event, the annual ITL Conference, brings together hundreds of ITLs and equity-seeking partners nationwide.",
   },
   {
-    question: "Who can join the network?",
+    question: "Who can join the Network?",
     answer:
-      "Any internationally trained lawyer or professional working in or interested in the Canadian legal sector is welcome to join.",
+      "Membership is open to internationally trained lawyers, internationally trained law graduates, and professionals interested in the Canadian legal sector. We welcome students, practicing lawyers, academics, and allies who share our vision.",
   },
   {
-    question: "Is there a membership fee?",
+    question: "Do I need to be licensed in Canada to join?",
     answer:
-      "Membership is free for now. Some premium events and programs may require a fee, which will always be communicated clearly.",
+      "No. We welcome internationally trained law graduates and lawyers at all stages of their journey, whether you are beginning the licensing process, actively practicing, or exploring career options in Canada.",
   },
   {
-    question: "How do I get started?",
+    question: "Can Canadian-trained lawyers or professionals join?",
     answer:
-      "You can register online by clicking the 'Join Our Network' button in the Hero section. Once registered, you'll gain access to resources, events, and mentoring opportunities.",
+      "Yes. Canadian-trained lawyers, legal professionals, and academics are encouraged to join as mentors, collaborators, and allies in advancing diversity and inclusion in the legal profession.",
+  },
+  {
+    question: "How does the Mentorship Program work?",
+    answer:
+      "Our Revamped Mentorship Program matches members with experienced legal professionals who provide tailored guidance on licensing, career advancement, leadership, and building a sustainable practice. Mentorship can take the form of one-on-one guidance, group sessions, or workshops.",
+  },
+  {
+    question: "What is the ITL Conference?",
+    answer:
+      "The ITL Conference is Canada’s national gathering for internationally trained lawyers, held annually in partnership with equity-seeking groups. It features impactful speakers, interactive sessions, and networking opportunities that bring together hundreds of ITLs from across the country.",
+  },
+  {
+    question: "How can organizations partner with the ITL Network?",
+    answer:
+      "We collaborate with law firms, corporations, academic institutions, and community organizations that share our vision for equity and inclusion. Partnership opportunities include event sponsorships, mentorship collaborations, research projects, and resource sharing.",
+  },
+  {
+    question: "What career resources are available to members?",
+    answer:
+      "Through our Membership Platform, members gain access to practical resources such as licensing guidance, career-building workshops, leadership development tools, and networking opportunities.",
+  },
+  {
+    question: "Is the ITL Network only for newcomers to Canada?",
+    answer:
+      "Not at all. While many of our members are internationally trained lawyers building their careers in Canada, the Network also supports established practitioners seeking mentorship, leadership growth, and community connection.",
   },
 ];
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleFAQ = (index) => {
+  const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-20 lg:py-24 bg-brand-white-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+    <section className="bg-black text-white py-20 lg:py-28">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-black-900 mb-6">
-            Frequently Asked Questions
-          </h2>
+          <h2 className="text-4xl lg:text-6xl font-bold mb-6">FAQs</h2>
+          <p className="text-gray-400 text-lg">
+            Frequently asked questions about the ITL Network
+          </p>
+          <div className="w-24 h-1 bg-brand-gold-500 mx-auto mt-6"></div>
         </div>
 
-        {/* FAQ Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* FAQ List */}
+        <div className="space-y-6">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className={`bg-brand-white-50 rounded-2xl border-4 transition-colors duration-300 ${
-                openIndex === index
-                  ? "border-brand-gold-500"
-                  : "border-brand-black-300 hover:border-brand-gold-400"
-              }`}
+              className="border border-gray-800 rounded-lg bg-black/50 overflow-hidden"
             >
               <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center px-6 lg:px-8 py-6 text-left group"
+                onClick={() => toggle(index)}
+                className="w-full flex justify-between items-center text-left p-6 focus:outline-none"
               >
-                <span className="font-semibold text-lg md:text-xl text-brand-black-900 pr-4">
-                  {faq.question}
-                </span>
-                <span
-                  className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full border-2 font-bold text-lg transition-all duration-300 ${
-                    openIndex === index
-                      ? "bg-brand-gold-500 border-brand-gold-600 text-brand-black-950"
-                      : "bg-brand-white-50 border-brand-black-400 text-brand-black-700 group-hover:border-brand-gold-500 group-hover:text-brand-gold-600"
-                  }`}
-                >
+                <span className="text-lg font-medium">{faq.question}</span>
+                <span className="ml-4 text-brand-gold-500">
                   {openIndex === index ? "−" : "+"}
                 </span>
               </button>
-
               {openIndex === index && (
-                <div className="px-6 lg:px-8 pb-6 border-t-2 border-brand-gold-300 mt-2 pt-6">
-                  <p className="text-brand-black-600 text-base md:text-lg leading-relaxed">
-                    {faq.answer}
-                  </p>
+                <div className="px-6 pb-6 text-gray-400 text-base leading-relaxed">
+                  {faq.answer}
                 </div>
               )}
             </div>
