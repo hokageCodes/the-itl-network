@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 export default function AboutSection() {
   return (
     <section className="relative bg-white py-12 sm:py-12">
-      <div className="container mx-auto px-2 space-y-16">
+      <div className="container mx-auto px-2 md:px-12 space-y-16">
         {/* Header section split in two / three */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 items-start mx-auto">
           {/* Left: Title + CTA */}
