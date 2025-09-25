@@ -1,7 +1,11 @@
-'use client';
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+"use client";
+import React, { useEffect, useRef } from "react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
   {
@@ -27,64 +31,134 @@ const steps = [
 ];
 
 export default function KeyOfferings() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate header
+      gsap.from(".offer-header", {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".offer-header",
+          start: "top 80%",
+        },
+      });
+
+      // Animate cards stagger
+      gsap.from(".offer-card", {
+        opacity: 0,
+        y: 60,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".offer-card",
+          start: "top 85%",
+        },
+      });
+
+      // Animate footer avatars & CTA
+      gsap.from(".offer-avatars img", {
+        opacity: 0,
+        scale: 0,
+        stagger: 0.2,
+        duration: 0.6,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: ".offer-footer",
+          start: "top 85%",
+        },
+      });
+
+      gsap.from(".offer-cta", {
+        opacity: 0,
+        x: 80,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".offer-footer",
+          start: "top 85%",
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="w-full py-20">
-      <div className="max-w-6xl mx-auto px-4">
+    <section
+      ref={sectionRef}
+      className="w-full py-16 sm:py-20 lg:py-24 bg-brand-white-50"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <h2 className="text-3xl text md:text-5xl font-bold mb-16 text-center">
-          Unlock Exclusive Advantages <br /> when you join us
+        <h2 className="offer-header text-4xl sm:text-5xl md:text-6xl font-bold mb-16 text-center text-brand-black-900 leading-tight">
+          Unlock Exclusive Advantages <br className="hidden sm:block" /> when you join us
         </h2>
-        {/* <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
-          Discover how we empower internationally trained lawyers with tailored opportunities, resources, and connections. 
-        </p> */}
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {steps.map((step) => (
             <div
               key={step.id}
-              className="bg-[#12182B] p-6 rounded-xl hover:bg-[#1A2035] transition"
+              className="offer-card bg-brand-black-950 p-6 lg:p-8 rounded-2xl hover:border-brand-gold-500 transition-colors duration-300 min-h-[200px] flex flex-col"
             >
-              <span className="text-sm text-brand-gold font-semibold">{step.id}</span>
-              <h3 className="text-lg font-semibold mt-2 mb-2">{step.title}</h3>
-              <p className="text-gray-400 text-sm">{step.desc}</p>
+              <div className="mb-4">
+                <span className="inline-flex items-center justify-center w-10 h-10 bg-brand-gold-500 text-brand-black-950 text-sm font-bold rounded-full border-2 border-brand-gold-600">
+                  {step.id}
+                </span>
+              </div>
+              <h3 className="text-xl font-bold mt-2 mb-4 text-brand-white-50 flex-shrink-0">
+                {step.title}
+              </h3>
+              <p className="text-brand-white-200 text-sm md:text-base leading-relaxed flex-1">
+                {step.desc}
+              </p>
             </div>
           ))}
         </div>
 
         {/* CTA Footer */}
-        <div className="bg-[#12182B] flex flex-col md:flex-row items-center justify-between p-6 rounded-xl">
-          <div className="flex items-center gap-3 mb-4 md:mb-0">
-            {/* Example avatars — replace with actual */}
-            <div className="flex -space-x-2">
+        <div className="offer-footer bg-brand-black-950 flex flex-col md:flex-row items-center justify-between p-6 lg:p-8 rounded-2xl">
+          <div className="flex items-center gap-4 mb-6 md:mb-0">
+            {/* Member avatars */}
+            <div className="offer-avatars flex -space-x-3">
               <img
                 src="https://randomuser.me/api/portraits/men/32.jpg"
-                alt="member"
-                className="w-8 h-8 rounded-full border border-[#0B0E1A]"
+                alt="ITL Network Member"
+                className="w-10 h-10 rounded-full border-3 border-brand-gold-500"
               />
               <img
                 src="https://randomuser.me/api/portraits/women/44.jpg"
-                alt="member"
-                className="w-8 h-8 rounded-full border border-[#0B0E1A]"
+                alt="ITL Network Member"
+                className="w-10 h-10 rounded-full border-3 border-brand-gold-500"
               />
               <img
                 src="https://randomuser.me/api/portraits/men/56.jpg"
-                alt="member"
-                className="w-8 h-8 rounded-full border border-[#0B0E1A]"
+                alt="ITL Network Member"
+                className="w-10 h-10 rounded-full border-3 border-brand-gold-500"
               />
             </div>
-            <p className="text-sm text-gray-300">
-              Trusted by <span className="text-white font-semibold">hundreds of ITLs</span>
-            </p>
+            <div>
+              <p className="text-sm md:text-base text-brand-white-200">
+                Trusted by{" "}
+                <span className="text-brand-white-50 font-semibold">
+                  hundreds of ITLs
+                </span>
+              </p>
+            </div>
           </div>
 
           <Link
             href="/register"
-            className="inline-flex items-center px-8 py-4 bg-brand-gold text-black font-semibold rounded-full hover:bg-yellow-500 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            className="offer-cta group inline-flex items-center space-x-3 px-8 py-4 bg-brand-gold-500 text-brand-black-950 font-semibold rounded-full hover:bg-brand-gold-600 transition-all duration-300 border-4 border-brand-gold-500 hover:border-brand-gold-600"
           >
-            Join the Network Today
+            <span>Join the Network Today</span>
+            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Link>
-          
         </div>
       </div>
     </section>

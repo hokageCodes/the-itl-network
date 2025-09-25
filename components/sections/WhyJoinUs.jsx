@@ -1,75 +1,67 @@
-"use client";
-import React from "react";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+'use client';
+import React from 'react';
 
-const steps = [
+const reasons = [
   {
-    number: "01",
-    title: "Build Your Network",
+    title: 'Build Your Network',
     description:
-      "Connect with internationally trained lawyers, mentors, and professionals who can support your journey in Canada.",
+      'Join a national community of internationally trained lawyers, mentors, and equity-seeking partners. Expand your connections through our annual ITL Conference and year-round networking opportunities.',
   },
   {
-    number: "02",
-    title: "Access Resources",
+    title: 'Access Resources',
     description:
-      "Get exclusive access to career tools, workshops, and insights designed to help you succeed.",
+      'Gain exclusive access to our Membership Platform, where you’ll find career tools, workshops, and practical insights to help you navigate the licensing process and beyond.',
   },
   {
-    number: "03",
-    title: "Grow Professionally",
+    title: 'Grow Professionally',
     description:
-      "Enhance your skills and opportunities through mentorship, events, and collaborations.",
+      'Benefit from our Revamped Mentorship Program and targeted professional development initiatives. From licensing to leadership, we provide guidance to help you thrive at every stage of your career.',
   },
   {
-    number: "04",
-    title: "Achieve Your Goals",
+    title: 'Build a Sustainable Practice',
     description:
-      "Take clear steps towards licensing, employment, and building a sustainable legal career in Canada.",
+      'Move beyond short-term goals. Develop the skills, strategies, and support you need to establish and grow a lasting, impactful legal career in Canada.',
   },
 ];
 
-export default function WhyJoinUs() {
+export default function WhyJoinUsSection() {
   return (
-    <section className="bg-brand.black text-brand.white py-16 sm:py-20">
-      <div className="container mx-auto px-2">
-        {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+    <section className="bg-white py-20 lg:py-28">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl lg:text-6xl font-bold text-black mb-6">
             Why Join Us
           </h2>
-          <p className="text-brand.gold max-w-2xl mx-auto text-lg">
-            A simple, clear path to advancing your legal career in Canada.
+          <p className="text-black-400 text-lg max-w-3xl mx-auto">
+            A clear, supportive path to advancing your legal career in Canada.
           </p>
+          <div className="w-24 h-1 bg-gray-700 mx-auto mt-6"></div>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((step, index) => (
+        {/* Reasons Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          {reasons.map((reason, index) => (
             <div
               key={index}
-              className="bg-brand.white text-brand.black rounded-2xl p-6 shadow-md flex flex-col"
+              className="border border-gray-800 bg-black p-8 lg:p-10 h-full transition-all duration-300 hover:border-gray-600"
             >
-              <span className="text-brand.gold font-bold text-xl mb-2">
-                {step.number}
-              </span>
-              <h3 className="font-semibold text-lg mb-3">{step.title}</h3>
-              <p className="text-sm text-gray-700 leading-relaxed flex-1">
-                {step.description}
+              {/* Number */}
+              <div className="text-gray-500 text-lg font-mono mb-4">
+                {String(index + 1).padStart(2, '0')}
+              </div>
+
+              {/* Title */}
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-6">
+                {reason.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-gray-400 text-lg leading-relaxed">
+                {reason.description}
               </p>
             </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <Link
-            href="/register"
-            className="inline-flex items-center px-8 py-4 bg-brand-gold text-black font-semibold rounded-full hover:bg-yellow-500 transition-all duration-300 hover:scale-105 hover:shadow-xl"
-          >
-            Join the Network Today
-          </Link>
         </div>
       </div>
     </section>

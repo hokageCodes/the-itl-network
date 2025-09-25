@@ -1,162 +1,132 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
-import { useAuth } from "../../context/AuthContext";
 import { Play, ArrowRight } from "lucide-react";
 
-// Profile Card
-const MemberCard = ({ name, role, image, position, delay = 0, className = "" }) => (
-  <div
-    className={`absolute ${position} transform transition-all duration-500 hover:scale-105 z-10 ${className}`}
-    style={{
-      animationDelay: `${delay}ms`,
-      animation: "fadeInUp 800ms ease-out forwards",
-    }}
-  >
-    <div
-      className="relative flex items-center justify-center
-      w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 overflow-hidden"
-    >
-      <img
-        src={image}
-        alt={name}
-        className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 object-cover rounded-full"
-      />
-
-      {/* Floating info card */}
-      <div
-        className="absolute bottom-2 left-2 bg-white shadow-lg rounded-xl px-3 py-2 
-        w-[140px] sm:w-[160px] transform -rotate-1 hover:rotate-0 transition-all duration-300 border border-gray-100"
-      >
-        <div className="flex items-center space-x-2">
-          <span className="font-semibold text-gray-900 text-sm truncate">
-            {name}
-          </span>
-          <span className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0"></span>
-        </div>
-        <p className="text-xs text-gray-600 truncate">{role}</p>
-      </div>
-    </div>
-  </div>
-);
-
 export default function ITLHeroSection() {
-  const { user } = useAuth();
+  // Refs for animations
+  const heroRef = useRef(null);
+  const badgeRef = useRef(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const ctaRef = useRef(null);
+  const floatingBgRef = useRef([]);
+
+  useEffect(() => {
+    // Simple fade-in animations without GSAP
+    const elements = [badgeRef.current, titleRef.current, subtitleRef.current, ctaRef.current];
+    
+    elements.forEach((element, index) => {
+      if (element) {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+          element.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }, index * 150);
+      }
+    });
+
+    // Floating background animation
+    floatingBgRef.current.forEach((bg, index) => {
+      if (bg) {
+        const animate = () => {
+          bg.style.transition = 'transform 3s ease-in-out';
+          bg.style.transform = `translateY(${Math.sin(Date.now() / 1000 + index) * 20}px)`;
+          requestAnimationFrame(animate);
+        };
+        animate();
+      }
+    });
+  }, []);
 
   return (
-    <div className="relative min-h-screen bg-white overflow-hidden">
+    <div ref={heroRef} className="relative min-h-screen bg-white overflow-hidden">
+      {/* Optimized background pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div 
+          ref={el => floatingBgRef.current[0] = el}
+          className="absolute top-20 left-10 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-xl"
+        />
+        <div 
+          ref={el => floatingBgRef.current[1] = el}
+          className="absolute top-40 right-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl"
+        />
+        <div 
+          ref={el => floatingBgRef.current[2] = el}
+          className="absolute bottom-20 left-20 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-xl"
+        />
+      </div>
+
       {/* Main content */}
-      <div className="relative z-20 container mx-auto px-2 sm:px-6 pt-28 sm:pt-32 lg:pt-48 pb-16 sm:pb-20 lg:pb-28">
+      <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-48 pb-16 sm:pb-20 lg:pb-28">
         <div className="text-center max-w-5xl mx-auto">
-          <div className="mb-6 sm:mb-8">
-            <span className="inline-block px-4 py-2 bg-brand-gold/10 text-brand-gold text-sm font-medium rounded-full border border-brand-gold/20">
+          {/* Badge */}
+          <div ref={badgeRef} className="mb-6 sm:mb-8">
+            <span className="inline-flex items-center px-8 py-4 bg-yellow-100/80 text-yellow-700 text-md font-semibold rounded-full border border-yellow-300/50 backdrop-blur-sm shadow-sm">
               The ITL Network
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 sm:mb-8 leading-tight">
+          {/* Main Heading */}
+          <h1 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-6 sm:mb-8 leading-tight">
             A Network of Internationally Trained Lawyers in{" "}
-            <span className="text-brand-gold">Canada</span>
+            <span className="text-yellow-600 relative">
+              Canada
+              <svg 
+                className="absolute -bottom-2 left-0 w-full h-3 text-yellow-300/60" 
+                viewBox="0 0 200 12" 
+                fill="currentColor"
+                preserveAspectRatio="none"
+              >
+                <path d="M0,8 Q50,2 100,8 T200,8 L200,12 L0,12 Z"/>
+              </svg>
+            </span>
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
+          {/* Subtitle */}
+          <p ref={subtitleRef} className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
             Connect, learn, and grow together with lawyers and professionals
             shaping the future of legal practice in Canada.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8 sm:mb-12 px-4">
-            {!user ? (
-              <>
-                <Link
-                  href="/register"
-                  className="w-full sm:w-auto bg-brand-gold hover:bg-yellow-500 text-black px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2"
-                >
-                  <span>Join Our Network</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
+          {/* CTA Buttons */}
+          <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8 sm:mb-12 px-4">
+            <Link
+              href="/register"
+              className="flex items-center px-8 py-4 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Become a Member
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
 
-                <button className="w-full sm:w-auto flex items-center justify-center space-x-3 text-gray-700 hover:text-brand-gold transition-colors duration-300 group">
-                  <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center group-hover:shadow-lg transition-all duration-300 border border-gray-100">
-                    <Play className="w-5 h-5 text-brand-gold ml-1" />
-                  </div>
-                  <span className="font-medium">Watch Intro</span>
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/dashboard"
-                  className="w-full sm:w-auto bg-brand-gold hover:bg-yellow-500 text-black px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2"
-                >
-                  <span>Go to Dashboard</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-
-                <Link
-                  href="/events"
-                  className="w-full sm:w-auto flex items-center justify-center space-x-3 text-gray-700 hover:text-brand-gold transition-colors duration-300 group"
-                >
-                  <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center group-hover:shadow-lg transition-all duration-300 border border-gray-100">
-                    <Play className="w-5 h-5 text-brand-gold ml-1" />
-                  </div>
-                  <span className="font-medium">Explore Events</span>
-                </Link>
-              </>
-            )}
+            <button className="w-full sm:w-auto flex items-center justify-center space-x-3 text-gray-700 hover:text-yellow-600 transition-colors duration-300 group">
+              <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center group-hover:shadow-lg transition-all duration-300 border border-yellow-200/30 group-hover:border-yellow-400/50">
+                <Play className="w-5 h-5 text-yellow-600 ml-1" />
+              </div>
+              <span className="font-medium">Watch Intro</span>
+            </button>
           </div>
 
-          {/* Mobile: show one card below CTAs */}
-          <div className="flex justify-center md:hidden mt-6">
-            <img src="/cynthia.png" alt="presido" />
+          {/* Stats or additional info */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-black mb-2">500+</div>
+              <div className="text-gray-600">Active Members</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-black mb-2">12</div>
+              <div className="text-gray-600">Provinces Covered</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-black mb-2">98%</div>
+              <div className="text-gray-600">Success Rate</div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Floating member cards - desktop only */}
-      <div className="hidden md:block">
-        <MemberCard
-          name="Cynthia Okafor"
-          role="Co-Founder & President"
-          image="/cynthia.png"
-          position="top-40 left-10"
-          delay={200}
-        />
-        <MemberCard
-          name="Kenny Okunola"
-          role="Co-Founder & Director"
-          image="/kenny.png"
-          position="top-32 right-12"
-          delay={400}
-        />
-        {/* Bottom cards adjusted closer to CTA section */}
-        <MemberCard
-          name="Anjana Bhaskaran"
-          role="Vice President"
-          image="/anjana.png"
-          position="bottom-32 left-40"
-          delay={600}
-        />
-        <MemberCard
-          name="Marshall Ilechie"
-          role="Secretary"
-          image="/marshall.png"
-          position="bottom-28 right-40"
-          delay={800}
-        />
-      </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 }

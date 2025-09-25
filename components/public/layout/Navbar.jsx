@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 export default function Navbar() {
-  const { user, logout, loading } = useAuth(); // ✅ Use real auth context
+  const { user, logout, loading } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -64,29 +64,31 @@ export default function Navbar() {
     }));
   };
 
-  // ✅ Show loading state while auth is being determined
   if (loading) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black" style={{ minHeight: '64px' }}>
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 bg-brand-black-950"
+        style={{ minHeight: "64px" }}
+      >
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
           <div className="flex items-center justify-between min-h-[64px]">
-            <div className="flex items-center">
+            <div className="flex items-center flex-shrink-0">
               <Link href="/" className="flex items-center">
                 <img
-                  src="/itl-logo-nobg.png"
+                  src="/Original-ITL-Logo.png"
                   alt="Logo"
-                  className="h-5 w-auto object-contain lg:-ml-24 -ml-14"
-                  style={{ 
-                    height: '90px',
-                    maxWidth: '200px',
+                  className="h-16 w-auto object-cover max-w-[120px] sm:max-w-[160px] lg:max-w-[200px]"
+                  style={{
+                    height: "60px",
+                    maxHeight: "60px",
                   }}
                   width="auto"
-                  height="20"
+                  height="48"
                 />
               </Link>
             </div>
-            <div className="flex items-center space-x-3">
-              <div className="animate-pulse bg-gray-600 h-10 w-32 rounded"></div>
+            <div className="flex items-center space-x-3 flex-shrink-0">
+              <div className="animate-pulse bg-brand-black-600 h-10 w-32 rounded-lg"></div>
             </div>
           </div>
         </div>
@@ -97,61 +99,74 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white border-b border-black/10" : "bg-black"
+        scrolled
+          ? "bg-brand-white-50/95 backdrop-blur-md border-b border-brand-black-200/20 shadow-sm"
+          : "bg-brand-black-950"
       }`}
-      style={{ minHeight: '64px' }}
+      style={{ minHeight: "64px" }}
     >
-      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between min-h-[64px]">
           {/* Logo - Left */}
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center">
+          <div className="flex items-center flex-shrink-0">
+            <Link
+              href="/"
+              className="flex items-center transition-transform hover:scale-105"
+            >
               <img
-                src={scrolled ? "/itl-logo-nobg.png" : "/itl-logo-nobg.png"}
+                src="/Original-ITL - Logo-Transparent-background.png"
                 alt="Logo"
-                className="h-5 w-auto object-contain lg:-ml-24 -ml-14"
-                style={{ 
-                  height: '90px',
-                  maxWidth: '200px',
+                className="h-12 border object-cover max-w-[120px] sm:max-w-[160px] lg:max-w-[200px]"
+                style={{
+                  height: "60px",
+                  maxHeight: "60px",
                 }}
                 width="auto"
-                height="20"
+                height="48"
               />
             </Link>
           </div>
 
           {/* Desktop Navigation - Center */}
           <div className="hidden lg:flex items-center justify-center flex-1 max-w-3xl mx-auto">
-            <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-2">
               {navigationGroups.map((group) => (
                 <div key={group.label} className="relative group">
                   <button
-                    className={`flex items-center space-x-1 px-4 py-3 min-h-[44px] ${
-                      scrolled ? "text-black" : "text-white"
-                    } hover:text-[#DD9933] transition-colors font-medium`}
+                    className={`flex items-center space-x-2 px-4 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 ${
+                      scrolled
+                        ? "text-brand-black-800 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                        : "text-brand-white-50 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
+                    }`}
                   >
-                    <span>{group.label}</span>
-                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    <span className="text-sm">{group.label}</span>
+                    <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
                   </button>
 
                   {/* Dropdown */}
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div
                       className={`${
-                        scrolled ? "bg-white" : "bg-black"
-                      } border border-black/10 rounded-lg shadow-lg overflow-hidden`}
+                        scrolled
+                          ? "bg-brand-white-50 border border-brand-black-200/20"
+                          : "bg-brand-black-900 border border-brand-white-50/20"
+                      } rounded-xl shadow-xl overflow-hidden backdrop-blur-md`}
                     >
                       {group.items.map((item, index) => (
                         <div key={item.href}>
                           {item.auth && !user ? (
                             <button
                               onClick={() => handleAuthClick(item.href)}
-                              className={`w-full text-left px-4 py-3 min-h-[44px] ${
+                              className={`w-full text-left px-5 py-3 min-h-[44px] text-sm font-medium transition-all duration-200 ${
                                 scrolled
-                                  ? "text-black hover:text-[#DD9933] hover:bg-black/5"
-                                  : "text-white hover:text-[#DD9933] hover:bg-white/5"
-                              } transition-colors ${
-                                index !== group.items.length - 1 ? "border-b border-black/5" : ""
+                                  ? "text-brand-black-700 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                                  : "text-brand-white-100 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
+                              } ${
+                                index !== group.items.length - 1
+                                  ? scrolled
+                                    ? "border-b border-brand-black-100"
+                                    : "border-b border-brand-white-50/10"
+                                  : ""
                               }`}
                             >
                               {item.label}
@@ -159,12 +174,16 @@ export default function Navbar() {
                           ) : (
                             <Link
                               href={item.href}
-                              className={`block px-4 py-3 min-h-[44px] ${
+                              className={`block px-5 py-3 min-h-[44px] text-sm font-medium transition-all duration-200 ${
                                 scrolled
-                                  ? "text-black hover:text-[#DD9933] hover:bg-black/5"
-                                  : "text-white hover:text-[#DD9933] hover:bg-white/5"
-                              } transition-colors ${
-                                index !== group.items.length - 1 ? "border-b border-black/5" : ""
+                                  ? "text-brand-black-700 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                                  : "text-brand-white-100 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
+                              } ${
+                                index !== group.items.length - 1
+                                  ? scrolled
+                                    ? "border-b border-brand-black-100"
+                                    : "border-b border-brand-white-50/10"
+                                  : ""
                               }`}
                             >
                               {item.label}
@@ -185,43 +204,41 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className={`hidden sm:block px-4 py-2 min-h-[44px] border rounded transition flex items-center ${
+                  className={`hidden sm:flex items-center px-4 py-2 min-h-[44px] border rounded-lg transition-all duration-200 font-medium text-sm ${
                     scrolled
-                      ? "text-black border-black/20 hover:text-[#DD9933] hover:border-[#DD9933]"
-                      : "text-white border-white/20 hover:text-[#DD9933] hover:border-[#DD9933]"
+                      ? "text-brand-black-700 border-brand-black-300 hover:text-brand-gold-600 hover:border-brand-gold-400 hover:bg-brand-gold-50"
+                      : "text-brand-white-100 border-brand-white-50/30 hover:text-brand-gold-400 hover:border-brand-gold-400 hover:bg-brand-white-50/10"
                   }`}
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 min-h-[44px] bg-[#DD9933] text-black font-medium rounded hover:bg-[#c2852b] transition flex items-center whitespace-nowrap"
+                  className="flex items-center px-5 py-2 min-h-[44px] bg-brand-gold-500 text-brand-black-950 font-semibold rounded-lg hover:bg-brand-gold-600 transition-all duration-200 whitespace-nowrap text-sm shadow-gold hover:shadow-gold-lg transform hover:scale-105"
                 >
-                  Become a member
+                  Become a Member
                 </Link>
               </>
             ) : (
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className={`flex items-center space-x-2 px-3 py-2 min-h-[44px] border rounded transition ${
+                  className={`flex items-center space-x-3 px-3 py-2 min-h-[44px] border rounded-lg transition-all duration-200 ${
                     scrolled
-                      ? "text-black border-black/20 hover:text-[#DD9933]"
-                      : "text-white border-white/20 hover:text-[#DD9933]"
+                      ? "text-brand-black-700 border-brand-black-300 hover:text-brand-gold-600 hover:border-brand-gold-400 hover:bg-brand-gold-50"
+                      : "text-brand-white-100 border-brand-white-50/30 hover:text-brand-gold-400 hover:border-brand-gold-400 hover:bg-brand-white-50/10"
                   }`}
                 >
-                  <div className="w-8 h-8 bg-[#DD9933] text-black font-bold rounded-full flex items-center justify-center flex-shrink-0">
-                    {/* ✅ Use firstName or username from real user object */}
-                    {user.firstName 
-                      ? user.firstName.charAt(0).toUpperCase() 
-                      : user.username?.charAt(0).toUpperCase() || 'U'
-                    }
+                  <div className="w-8 h-8 bg-brand-gold-500 text-brand-black-950 font-bold rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                    {user.firstName
+                      ? user.firstName.charAt(0).toUpperCase()
+                      : user.username?.charAt(0).toUpperCase() || "U"}
                   </div>
-                  <span className="hidden sm:block">
+                  <span className="hidden sm:block font-medium text-sm">
                     {user.firstName || user.username}
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform flex-shrink-0 ${
+                    className={`w-4 h-4 transition-transform duration-200 flex-shrink-0 ${
                       dropdownOpen ? "rotate-180" : ""
                     }`}
                   />
@@ -229,40 +246,53 @@ export default function Navbar() {
 
                 {dropdownOpen && (
                   <div
-                    className={`absolute right-0 mt-2 w-48 ${
-                      scrolled ? "bg-white" : "bg-black"
-                    } border border-black/10 rounded-lg shadow-lg overflow-hidden z-50`}
+                    className={`absolute right-0 mt-2 w-52 ${
+                      scrolled
+                        ? "bg-brand-white-50 border border-brand-black-200/20"
+                        : "bg-brand-black-900 border border-brand-white-50/20"
+                    } rounded-xl shadow-xl overflow-hidden z-50 backdrop-blur-md`}
                   >
                     <Link
                       href="/dashboard"
-                      className={`flex items-center px-4 py-3 min-h-[44px] ${
+                      className={`flex items-center px-5 py-3 min-h-[44px] text-sm font-medium transition-all duration-200 ${
                         scrolled
-                          ? "text-black hover:text-[#DD9933] hover:bg-black/5"
-                          : "text-white hover:text-[#DD9933] hover:bg-white/5"
-                      } transition border-b border-black/5`}
+                          ? "text-brand-black-700 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                          : "text-brand-white-100 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
+                      } border-b ${
+                        scrolled
+                          ? "border-brand-black-100"
+                          : "border-brand-white-50/10"
+                      }`}
                       onClick={() => setDropdownOpen(false)}
                     >
-                      <User className="w-4 h-4 mr-3 flex-shrink-0" /> Dashboard
+                      <User className="w-4 h-4 mr-3 flex-shrink-0" />
+                      Dashboard
                     </Link>
                     <Link
                       href="/profile"
-                      className={`flex items-center px-4 py-3 min-h-[44px] ${
+                      className={`flex items-center px-5 py-3 min-h-[44px] text-sm font-medium transition-all duration-200 ${
                         scrolled
-                          ? "text-black hover:text-[#DD9933] hover:bg-black/5"
-                          : "text-white hover:text-[#DD9933] hover:bg-white/5"
-                      } transition border-b border-black/5`}
+                          ? "text-brand-black-700 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                          : "text-brand-white-100 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
+                      } border-b ${
+                        scrolled
+                          ? "border-brand-black-100"
+                          : "border-brand-white-50/10"
+                      }`}
                       onClick={() => setDropdownOpen(false)}
                     >
-                      <Settings className="w-4 h-4 mr-3 flex-shrink-0" /> Settings
+                      <Settings className="w-4 h-4 mr-3 flex-shrink-0" />
+                      Settings
                     </Link>
                     <button
                       onClick={() => {
-                        logout(); // ✅ Use real logout function
+                        logout();
                         setDropdownOpen(false);
                       }}
-                      className="flex items-center w-full px-4 py-3 min-h-[44px] text-red-500 hover:text-red-400 hover:bg-red-500/10 transition"
+                      className="flex items-center w-full px-5 py-3 min-h-[44px] text-sm font-medium text-error-600 hover:text-error-500 hover:bg-error-50 transition-all duration-200"
                     >
-                      <LogOut className="w-4 h-4 mr-3 flex-shrink-0" /> Sign Out
+                      <LogOut className="w-4 h-4 mr-3 flex-shrink-0" />
+                      Sign Out
                     </button>
                   </div>
                 )}
@@ -272,10 +302,10 @@ export default function Navbar() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`lg:hidden p-2 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              className={`lg:hidden p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg transition-all duration-200 ${
                 scrolled
-                  ? "text-black hover:text-[#DD9933]"
-                  : "text-white hover:text-[#DD9933]"
+                  ? "text-brand-black-700 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                  : "text-brand-white-100 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
               }`}
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -288,8 +318,10 @@ export default function Navbar() {
       {mobileOpen && (
         <div
           className={`lg:hidden ${
-            scrolled ? "bg-white" : "bg-black"
-          } border-t border-black/10`}
+            scrolled
+              ? "bg-brand-white-50/95 backdrop-blur-md border-t border-brand-black-200/20"
+              : "bg-brand-black-950 border-t border-brand-white-50/10"
+          }`}
         >
           <div className="px-4 py-4 max-w-7xl mx-auto">
             <div className="space-y-2">
@@ -297,20 +329,22 @@ export default function Navbar() {
                 <div key={group.label}>
                   <button
                     onClick={() => toggleMobileDropdown(group.label)}
-                    className={`w-full flex justify-between items-center px-4 py-3 min-h-[44px] font-medium rounded ${
-                      scrolled ? "text-black" : "text-white"
-                    } hover:text-[#DD9933] hover:bg-black/5 transition-colors`}
+                    className={`w-full flex justify-between items-center px-4 py-3 min-h-[44px] font-semibold rounded-lg transition-all duration-200 ${
+                      scrolled
+                        ? "text-brand-black-800 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                        : "text-brand-white-50 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
+                    }`}
                   >
-                    {group.label}
+                    <span className="text-sm">{group.label}</span>
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform flex-shrink-0 ${
+                      className={`w-4 h-4 transition-transform duration-200 flex-shrink-0 ${
                         mobileDropdowns[group.label] ? "rotate-180" : ""
                       }`}
                     />
                   </button>
 
                   {mobileDropdowns[group.label] && (
-                    <div className="ml-4 mt-1 space-y-1">
+                    <div className="ml-4 mt-2 space-y-1">
                       {group.items.map((item) => (
                         <div key={item.href}>
                           {item.auth && !user ? (
@@ -319,11 +353,11 @@ export default function Navbar() {
                                 handleAuthClick(item.href);
                                 setMobileOpen(false);
                               }}
-                              className={`block w-full text-left px-4 py-3 min-h-[44px] rounded ${
+                              className={`block w-full text-left px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 ${
                                 scrolled
-                                  ? "text-black hover:text-[#DD9933] hover:bg-black/5"
-                                  : "text-white hover:text-[#DD9933] hover:bg-white/5"
-                              } transition-colors`}
+                                  ? "text-brand-black-600 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                                  : "text-brand-white-200 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
+                              }`}
                             >
                               {item.label}
                             </button>
@@ -331,11 +365,11 @@ export default function Navbar() {
                             <Link
                               href={item.href}
                               onClick={() => setMobileOpen(false)}
-                              className={`block px-4 py-3 min-h-[44px] rounded ${
+                              className={`block px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 ${
                                 scrolled
-                                  ? "text-black hover:text-[#DD9933] hover:bg-black/5"
-                                  : "text-white hover:text-[#DD9933] hover:bg-white/5"
-                              } transition-colors`}
+                                  ? "text-brand-black-600 hover:text-brand-gold-600 hover:bg-brand-gold-50"
+                                  : "text-brand-white-200 hover:text-brand-gold-400 hover:bg-brand-white-50/10"
+                              }`}
                             >
                               {item.label}
                             </Link>
@@ -349,14 +383,21 @@ export default function Navbar() {
             </div>
 
             {!user && (
-              <div className="pt-4 mt-4 border-t border-black/10 space-y-3">
+              <div
+                className="pt-4 mt-4 border-t space-y-3"
+                style={{
+                  borderColor: scrolled
+                    ? "rgb(209 213 219 / 0.3)"
+                    : "rgb(248 250 252 / 0.1)",
+                }}
+              >
                 <Link
                   href="/login"
                   onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-3 min-h-[44px] text-center border rounded transition ${
+                  className={`block px-4 py-3 min-h-[44px] text-center border rounded-lg transition-all duration-200 font-medium text-sm ${
                     scrolled
-                      ? "text-black border-black/20 hover:text-[#DD9933] hover:border-[#DD9933]"
-                      : "text-white border-white/20 hover:text-[#DD9933] hover:border-[#DD9933]"
+                      ? "text-brand-black-700 border-brand-black-300 hover:text-brand-gold-600 hover:border-brand-gold-400 hover:bg-brand-gold-50"
+                      : "text-brand-white-100 border-brand-white-50/30 hover:text-brand-gold-400 hover:border-brand-gold-400 hover:bg-brand-white-50/10"
                   }`}
                 >
                   Login
@@ -364,9 +405,9 @@ export default function Navbar() {
                 <Link
                   href="/register"
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 min-h-[44px] text-center bg-[#DD9933] text-black font-medium rounded hover:bg-[#c2852b] transition"
+                  className="block px-4 py-3 min-h-[44px] text-center bg-brand-gold-500 text-brand-black-950 font-semibold rounded-lg hover:bg-brand-gold-600 transition-all duration-200 text-sm shadow-gold"
                 >
-                  Become a member
+                  Become a Member
                 </Link>
               </div>
             )}

@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState } from "react";
 
@@ -21,51 +20,61 @@ const faqs = [
   {
     question: "How do I get started?",
     answer:
-      "You can register online by clicking the 'Join Our Network' button in the Hero section. Once registered, you’ll gain access to resources, events, and mentoring opportunities.",
+      "You can register online by clicking the 'Join Our Network' button in the Hero section. Once registered, you'll gain access to resources, events, and mentoring opportunities.",
   },
 ];
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    (null);
+  const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-20">
-      <div className="container mx-auto px-2 max-w-4xl">
+    <section id="faq" className="py-16 sm:py-20 lg:py-24 bg-brand-white-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-16">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-black-900 mb-6">
             Frequently Asked Questions
           </h2>
-          {/* <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Here are some of the most common questions about the ITL Network.
-          </p> */}
         </div>
 
-        {/* FAQ Items */}
-        <div className="space-y-4">
+        {/* FAQ Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-sm border border-gray-200"
+              className={`bg-brand-white-50 rounded-2xl border-4 transition-colors duration-300 ${
+                openIndex === index
+                  ? "border-brand-gold-500"
+                  : "border-brand-black-300 hover:border-brand-gold-400"
+              }`}
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center px-6 py-4 text-left"
+                className="w-full flex justify-between items-center px-6 lg:px-8 py-6 text-left group"
               >
-                <span className="font-medium text-gray-900">
+                <span className="font-semibold text-lg md:text-xl text-brand-black-900 pr-4">
                   {faq.question}
                 </span>
-                <span className="text-gray-500">
+                <span
+                  className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full border-2 font-bold text-lg transition-all duration-300 ${
+                    openIndex === index
+                      ? "bg-brand-gold-500 border-brand-gold-600 text-brand-black-950"
+                      : "bg-brand-white-50 border-brand-black-400 text-brand-black-700 group-hover:border-brand-gold-500 group-hover:text-brand-gold-600"
+                  }`}
+                >
                   {openIndex === index ? "−" : "+"}
                 </span>
               </button>
+
               {openIndex === index && (
-                <div className="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
-                  {faq.answer}
+                <div className="px-6 lg:px-8 pb-6 border-t-2 border-brand-gold-300 mt-2 pt-6">
+                  <p className="text-brand-black-600 text-base md:text-lg leading-relaxed">
+                    {faq.answer}
+                  </p>
                 </div>
               )}
             </div>
