@@ -27,14 +27,14 @@ export default function ParallaxCarousel() {
 
   return (
     <div
-      className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-fixed bg-center bg-cover"
+      className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-fixed bg-center bg-cover -mt-24"
       style={{ backgroundImage: "url('/slides/7.png')" }} // <-- Parallax background
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
       {/* Carousel */}
-      <div className="relative z-10 max-w-4xl w-full px-6">
+      <div className="relative z-10 max-w-4xl w-full px-2">
         <div className="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-2xl">
           {slides.map((image, index) => (
             <div

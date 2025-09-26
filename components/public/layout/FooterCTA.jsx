@@ -9,7 +9,7 @@ export default function FooterCTA() {
 
   return (
     <section className="relative bg-brand-white-50 py-20 lg:py-28 overflow-hidden">
-      <div className="relative max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-5xl mx-auto text-center px-2 sm:px-6 lg:px-8">
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-black-900 mb-8 leading-tight">
           Be a part of{" "}
           <span className="relative inline-block">

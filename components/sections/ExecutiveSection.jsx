@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 const executives = [
   { 
@@ -214,74 +215,68 @@ export default function ExecutiveTeamSection() {
                       </div>
                     )}
                   </div>
-
-                  {/* Subtle indicator for more cards */}
-                  {!isActive && index === executives.length - 1 && canScrollRight && (
-                    <div className="absolute right-2 top-1/2 -translate-y-1/2">
-                      <div className="flex flex-col gap-1">
-                        {[...Array(3)].map((_, i) => (
-                          <div key={i} className="w-2 h-2 bg-yellow-500/60 rounded-full animate-pulse" style={{animationDelay: `${i * 0.2}s`}}></div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               );
             })}
-          </div>
 
-          {/* Progress Indicator */}
-          <div className="flex justify-center mt-8 gap-2">
-            {executives.map((executive, index) => (
-              <button
-                key={executive.id}
-                onClick={() => setActiveSection(executive.id)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  activeSection === executive.id 
-                    ? 'bg-yellow-500 w-8' 
-                    : 'bg-gray-600 hover:bg-gray-500'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile Layout - unchanged */}
-        <div className="lg:hidden w-full flex flex-col gap-8">
-          {executives.map((executive) => (
-            <div
-              key={executive.id}
-              className="relative w-full h-[400px] rounded-2xl overflow-hidden border-4 border-gray-700"
+            {/* Square CTA Card */}
+            <Link 
+              href="/our-team"
+              className="flex-shrink-0 w-[150px] h-full rounded-2xl overflow-hidden border-4 border-yellow-500 flex items-center justify-center bg-yellow-500 text-black font-bold text-lg hover:bg-yellow-600 transition-all duration-300"
             >
-              <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-                {executive.image ? (
-                  <LazyImage src={executive.image} alt={`${executive.name} - ${executive.role}`} />
-                ) : (
-                  <div className="text-white text-center">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-gray-600 rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold">{executive.name.charAt(0)}</span>
-                    </div>
-                    <p className="text-sm">Photo Coming Soon</p>
-                  </div>
-                )}
-              </div>
-
-              <div className="absolute bottom-0 left-0 right-0">
-                <div className="space-y-4 bg-black/95 border-t-4 border-yellow-500 p-6 backdrop-blur-sm">
-                  <div>
-                    <h3 className="text-white font-bold text-xl mb-2">{executive.name}</h3>
-                    <p className="text-yellow-400 font-semibold text-sm uppercase tracking-wide border-b-2 border-yellow-500 pb-1 inline-block">
-                      {executive.role}
-                    </p>
-                  </div>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {executive.bio}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+              View All
+            </Link>
+          </div>
         </div>
+
+        {/* Mobile Layout */}
+{/* Mobile Layout */}
+<div className="lg:hidden w-full flex flex-col gap-8">
+  {executives.map((executive) => (
+    <div
+      key={executive.id}
+      className="relative w-full h-[400px] rounded-2xl overflow-hidden border-4 border-gray-700"
+    >
+      <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+        {executive.image ? (
+          <LazyImage src={executive.image} alt={`${executive.name} - ${executive.role}`} />
+        ) : (
+          <div className="text-white text-center">
+            <div className="w-20 h-20 mx-auto mb-4 bg-gray-600 rounded-full flex items-center justify-center">
+              <span className="text-2xl font-bold">{executive.name.charAt(0)}</span>
+            </div>
+            <p className="text-sm">Photo Coming Soon</p>
+          </div>
+        )}
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0">
+        <div className="space-y-4 bg-black/95 border-t-4 border-yellow-500 p-6 backdrop-blur-sm">
+          <div>
+            <h3 className="text-white font-bold text-xl mb-2">{executive.name}</h3>
+            <p className="text-yellow-400 font-semibold text-sm uppercase tracking-wide border-b-2 border-yellow-500 pb-1 inline-block">
+              {executive.role}
+            </p>
+          </div>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            {executive.bio}
+          </p>
+        </div>
+      </div>
+    </div>
+  ))}
+
+  {/* Mobile CTA Button */}
+  <div className="flex justify-center mt-6">
+    <Link
+      href="/our-team"
+      className="px-8 py-4 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+    >
+      View All Board Members
+    </Link>
+  </div>
+</div>
+
       </div>
 
       <style jsx>{`

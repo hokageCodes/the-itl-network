@@ -27,11 +27,11 @@ const reasons = [
 export default function WhyJoinUsSection() {
   return (
     <section className="bg-white py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 lg:px-8">
         {/* Header */}
         <div className="text-center mb-20">
           <h2 className="text-4xl lg:text-6xl font-bold text-black mb-6">
-            Why Join Us
+            Why Join Us?
           </h2>
           <p className="text-black-400 text-lg max-w-3xl mx-auto">
             A clear, supportive path to advancing your legal career in Canada.
