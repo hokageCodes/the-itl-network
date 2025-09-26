@@ -27,7 +27,7 @@ export default function ParallaxCarousel() {
 
   return (
     <div
-      className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-fixed bg-center bg-cover -mt-24"
+      className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-fixed bg-center bg-cover -mt-24 md:mt-0"
       style={{ backgroundImage: "url('/slides/7.png')" }} // <-- Parallax background
     >
       {/* Overlay */}
