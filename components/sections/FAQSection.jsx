@@ -57,48 +57,47 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="bg-black text-white py-20 lg:py-28">
+    <section className="bg-white text-black py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-2 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-6xl font-bold mb-6">FAQs</h2>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-600 text-lg">
             Frequently asked questions about the ITL Network
           </p>
           <div className="w-24 h-1 bg-brand-gold-500 mx-auto mt-6"></div>
         </div>
 
         {/* FAQ Grid */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
-  {faqs.map((faq, index) => (
-    <div
-      key={index}
-      className="border border-gray-800 rounded-lg bg-black/50 flex flex-col"
-    >
-      <button
-        onClick={() => toggle(index)}
-        className="w-full flex justify-between items-center text-left p-6 focus:outline-none"
-      >
-        <span className="text-lg font-medium">{faq.question}</span>
-        <span className="ml-4 text-brand-gold-500">
-          {openIndex === index ? "−" : "+"}
-        </span>
-      </button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="border border-gray-200 rounded-lg bg-white shadow-sm flex flex-col"
+            >
+              <button
+                onClick={() => toggle(index)}
+                className="w-full flex justify-between items-center text-left p-6 focus:outline-none"
+              >
+                <span className="text-lg font-medium">{faq.question}</span>
+                <span className="ml-4 text-brand-gold-500 text-xl">
+                  {openIndex === index ? "−" : "+"}
+                </span>
+              </button>
 
-      {/* animate height without messing siblings */}
-      <div
-        className={`transition-all duration-300 overflow-hidden ${
-          openIndex === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="px-6 pb-6 text-gray-400 text-base leading-relaxed">
-          {faq.answer}
+              {/* animate height without messing siblings */}
+              <div
+                className={`transition-all duration-300 overflow-hidden ${
+                  openIndex === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="px-6 pb-6 text-gray-600 text-base leading-relaxed">
+                  {faq.answer}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    </div>
-  ))}
-</div>
-
       </div>
     </section>
   );

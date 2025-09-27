@@ -64,7 +64,7 @@ export default function AboutSection() {
             </h2>
             <Link
               href="/about"
-              className="flex items-center w-[150px] px-4 py-4 min-h-[44px] bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-600 transition-all duration-300 whitespace-nowrap text-base shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1"
+              className="flex items-center w-[150px] px-4 py-4 min-h-[44px] bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-300 whitespace-nowrap text-base shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1"
             >
               Learn more
               <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />

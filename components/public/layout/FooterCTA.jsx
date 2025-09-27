@@ -32,7 +32,7 @@ export default function FooterCTA() {
           {!user ? (
             <Link
               href="/register"
-              className="group inline-flex items-center space-x-3 px-8 py-4 bg-brand-gold-500 text-brand-black-950 font-semibold rounded-full hover:bg-brand-gold-600 transition-all duration-300"
+              className="group inline-flex items-center space-x-3 px-8 py-4 bg-brand-gold-500 text-brand-black-950 font-semibold rounded-lg hover:bg-brand-gold-600 transition-all duration-300"
             >
               <span>Join the Network Today</span>
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -40,7 +40,7 @@ export default function FooterCTA() {
           ) : (
             <Link
               href="/dashboard"
-              className="group inline-flex items-center space-x-3 px-8 py-4 bg-brand-black-950 text-brand-white-50 font-semibold rounded-full hover:bg-brand-black-800 transition-all duration-300 border-4 border-brand-black-950 hover:border-brand-black-800"
+              className="group inline-flex items-center space-x-3 px-8 py-4 bg-brand-black-950 text-brand-white-50 font-semibold hover:bg-brand-black-800 transition-all duration-300 border-4 border-brand-black-950 hover:border-brand-black-800"
             >
               <span>Go to Dashboard</span>
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />

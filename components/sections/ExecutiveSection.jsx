@@ -7,7 +7,7 @@ const executives = [
   { 
     id: 'President', 
     name: 'Cynthia Okafor',
-    role: 'Co-Founder & President',
+    role: 'President',
     image: '/board/Cynthia.png',
     bio: 'cynthia.okafor@itlnetwork.ca'
   },
@@ -19,16 +19,9 @@ const executives = [
     bio: 'kenny.okunola@itlnetwork.ca'
   },
   { 
-    id: 'Treasurer', 
-    name: 'Marshall Ilechie',
-    role: 'Treasurer',
-    image: '/board/Marshall.png',
-    bio: 'marshall.ilechie@itlnetwork.ca'
-  },
-  { 
     id: 'Sarah Lopez', 
-    name: 'Board Secretary',
-    role: 'Sarah Lopez',
+    name: 'Sarah Lopez',
+    role: 'Board Secretary',
     image: '/board/Sarah.png',
     bio: 'sarah.lopez@itlnetwork.ca'
   },
@@ -59,6 +52,13 @@ const executives = [
     role: 'Director of Events',
     image: '/board/Funto.png',
     bio: 'funto.omotoso@itlnetwork.ca'
+  },
+  { 
+    id: 'Treasurer', 
+    name: 'Marshall Ilechie',
+    role: 'Treasurer',
+    image: '/board/Marshall.png',
+    bio: 'marshall.ilechie@itlnetwork.ca'
   },
 ];
 

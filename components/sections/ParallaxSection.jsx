@@ -11,6 +11,10 @@ export default function ParallaxCarousel() {
     "/slides/3.png",
     "/slides/4.png",
     "/slides/5.png",
+    "/slides/6.png",
+    "/slides/7.png",
+    "/slides/8.png",
+    "/slides/9.png",
   ];
 
   // auto-rotate
@@ -27,15 +31,14 @@ export default function ParallaxCarousel() {
 
   return (
     <div
-      className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-fixed bg-center bg-cover -mt-24 md:mt-0"
-      style={{ backgroundImage: "url('/slides/7.png')" }} // <-- Parallax background
+      className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-fixed bg-gradient-to-b from-gray-900 via-black to-gray-900 -mt-24 md:mt-0"
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      {/* Overlay for parallax depth */}
+      <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Carousel */}
-      <div className="relative z-10 max-w-4xl w-full px-2">
-        <div className="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-2xl">
+      <div className="relative z-10 max-w-7xl w-full px-2">
+        <div className="relative w-full h-[80vh] rounded-2xl overflow-hidden shadow-2xl">
           {slides.map((image, index) => (
             <div
               key={index}

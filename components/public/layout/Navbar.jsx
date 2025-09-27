@@ -40,7 +40,7 @@ export default function Navbar() {
       items: [
         { href: "/membership", label: "Membership" },
         { href: "/mentorship", label: "Mentorship" },
-        { href: "/https://www.itlconference.ca", label: "ITL Conference" },
+        { href: "www.itlconference.ca", label: "ITL Conference" },
         { href: "/donate", label: "Donate" },
       ],
     },
