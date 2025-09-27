@@ -1,118 +1,275 @@
-import React from 'react';
+"use client"
+import { useState } from "react";
+import { Search, Menu, X, Star } from "lucide-react";
+import FAQSection from "../../../components/sections/FAQSection";
 
-const EduFlexHero = () => {
+const MentorshipHero = () => {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-400 to-green-600 p-6">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between mb-8">
-        <div className="text-2xl font-bold text-white">EduFlex</div>
-        <div className="hidden md:flex items-center space-x-8 text-white">
-          <a href="#" className="hover:text-green-200 transition-colors">Course</a>
-          <a href="#" className="hover:text-green-200 transition-colors">Pricing</a>
-          <a href="#" className="hover:text-green-200 transition-colors">Tutor</a>
-          <a href="#" className="hover:text-green-200 transition-colors">Admission</a>
-          <a href="#" className="hover:text-green-200 transition-colors">About</a>
+    <div>
+
+      {/* Hero */}
+{/* Mentorship Hero Section */}
+<section className="relative py-40 overflow-hidden bg-black sm:pb-20 lg:pb-24">
+  <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8 relative">
+    <div className="flex flex-col items-center text-center space-y-12">
+      
+      {/* Text Content */}
+      <div className="max-w-3xl">
+        <h2 className="text-4xl font-normal text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+          Connecting Mentors with Mentees
+        </h2>
+        <p className="mt-4 text-lg font-normal text-gray-400 sm:mt-8 leading-relaxed">
+          Get personalized guidance from experienced mentors to accelerate
+          your growth, navigate challenges, and unlock new opportunities.
+        </p>
+
+        {/* Search */}
+        <div className="relative mt-8 sm:mt-12 max-w-2xl mx-auto">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-6">
+            {/* <Search className="w-5 h-5 text-gray-500" /> */}
+          </div>
+          <input
+            type="text"
+            placeholder="Try 'Corporate Law', 'Litigation', 'Immigration'..."
+            className="block w-full py-6 pr-6 pl-6 text-white placeholder-gray-500 bg-black border border-gray-700 rounded-lg focus:ring-0 focus:outline-none"
+          />
+          <button className="mt-6 sm:mt-0 sm:absolute sm:right-1.5 sm:inset-y-1.5 inline-flex items-center justify-center w-full sm:w-auto px-5 py-4 text-sm font-semibold tracking-widest text-black uppercase bg-white rounded-lg hover:opacity-90">
+            Find A Mentor
+          </button>
         </div>
-        <button className="bg-white text-green-600 px-6 py-2 rounded-full font-medium hover:bg-green-50 transition-colors">
-          Contact
-        </button>
-      </nav>
 
-      {/* Hero Content */}
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <div className="grid lg:grid-cols-2 gap-0">
-            {/* Left Content */}
-            <div className="p-12 lg:p-16 flex flex-col justify-center">
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                A new way to learn
-                <br />
-                <span className="text-green-600">&</span> get knowledge
-              </h1>
-              
-              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                EduFlex is here for you with various courses & 
-                <br />
-                materials from skilled tutors around the world
+      </div>
+
+      {/* Mentor Profile Card - Full width, below text */}
+      <div className="relative w-full max-w-4xl mx-auto">
+        {/* Design */}
+        <div className="absolute inset-0">
+          <div className="blur-3xl filter opacity-70 w-full h-full rounded-lg"></div>
+        </div>
+        <div className="relative w-full rounded-xl p-8 border border-yellow-500/20
+          transform transition-all duration-500 ease-out hover:scale-[1.02] hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
+          
+          {/* Profile */}
+          <div className="flex flex-col items-center space-y-4">
+            <img
+              src="https://randomuser.me/api/portraits/men/75.jpg"
+              alt="John Carter"
+              className="w-24 h-24 rounded-lg border-2 border-yellow-500 object-cover"
+            />
+            <div className="text-center">
+              <h3 className="text-lg font-semibold text-white">
+                John Carter
+              </h3>
+              <p className="text-sm text-gray-400">
+                Senior Software Engineer @ Google
               </p>
-
-              <div className="flex flex-wrap gap-4 mb-12">
-                <button className="bg-purple-500 text-white px-8 py-3 rounded-full font-medium hover:bg-purple-600 transition-colors">
-                  Get started
-                </button>
-                <button className="border border-gray-300 text-gray-700 px-8 py-3 rounded-full font-medium hover:bg-gray-50 transition-colors">
-                  Learn more
-                </button>
-              </div>
-
-              {/* Stats */}
-              <div className="flex flex-wrap gap-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">15.2K</div>
-                  <div className="text-gray-600 text-sm">Active students</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">4.5K</div>
-                  <div className="text-gray-600 text-sm">Tutors</div>
-                </div>
-                <div className="text-center flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
-                  <div className="text-gray-600 text-sm">Resources</div>
-                </div>
-              </div>
             </div>
+          </div>
 
-            {/* Right Visual */}
-            <div className="relative p-8 lg:p-12 bg-gradient-to-br from-blue-50 to-purple-50">
-              {/* Decorative elements */}
-              <div className="absolute top-8 right-8 w-12 h-12 bg-blue-400 rounded-full opacity-20"></div>
-              <div className="absolute bottom-16 left-8 w-8 h-8 bg-purple-400 rounded-full opacity-30"></div>
-              <div className="absolute top-1/2 right-4 w-4 h-4 bg-green-400 rounded-full opacity-40"></div>
-              
-              {/* Student cards */}
-              <div className="relative z-10">
-                {/* Top student */}
-                <div className="absolute top-0 left-8 bg-white rounded-2xl shadow-lg p-4 w-48 transform rotate-3 hover:rotate-0 transition-transform">
-                  <div className="w-full h-24 bg-orange-400 rounded-lg mb-3 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-orange-500 rounded-full"></div>
-                  </div>
-                  <div className="text-sm font-medium text-gray-700">Interactive Learning</div>
-                </div>
+          {/* Skills */}
+          <div className="flex flex-wrap justify-center gap-2 mt-6">
+            {["React", "Node.js", "Leadership", "Career Growth"].map(
+              (skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm rounded-lg border border-yellow-400/40"
+                >
+                  {skill}
+                </span>
+              )
+            )}
+          </div>
 
-                {/* Middle student */}
-                <div className="absolute top-16 right-0 bg-white rounded-2xl shadow-lg p-4 w-44 transform -rotate-2 hover:rotate-0 transition-transform">
-                  <div className="w-full h-20 bg-purple-400 rounded-lg mb-3 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-purple-500 rounded-full"></div>
-                  </div>
-                  <div className="text-xs font-medium text-gray-700">Smart Analytics</div>
-                </div>
+          {/* Bio */}
+          <p className="mt-6 text-base text-gray-400 leading-relaxed text-center">
+            With 10+ years of experience in full-stack development, I’ve
+            mentored 200+ engineers across different industries. I
+            specialize in helping professionals transition into leadership
+            roles and scale their technical careers.
+          </p>
 
-                {/* Bottom student */}
-                <div className="absolute bottom-8 left-4 bg-white rounded-2xl shadow-lg p-4 w-52 transform rotate-1 hover:rotate-0 transition-transform">
-                  <div className="w-full h-28 bg-green-400 rounded-lg mb-3 flex items-center justify-center">
-                    <div className="w-20 h-20 bg-green-500 rounded-full"></div>
-                  </div>
-                  <div className="text-sm font-medium text-gray-700">Expert Guidance</div>
-                </div>
-              </div>
-
-              {/* Plus icons */}
-              <div className="absolute top-1/4 left-1/2 w-8 h-8 text-gray-400">
-                <svg fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                </svg>
-              </div>
-              <div className="absolute bottom-1/3 right-1/4 w-6 h-6 text-gray-300">
-                <svg fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                </svg>
-              </div>
+          {/* Rating */}
+          <div className="flex items-center justify-center mt-6 space-x-2">
+            <div className="flex">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                />
+              ))}
             </div>
+            <span className="text-sm text-white">4.9 (320 reviews)</span>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+{/* Mentors Profile Section */}
+<section className="relative py-16 sm:pb-20 lg:pb-24">
+  <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl">
+        Meet Our Top Mentors
+      </h2>
+      <p className="mt-4 text-lg text-gray-600 sm:text-xl max-w-2xl mx-auto">
+        Browse through our experienced mentors. See at a glance if they're currently available for matching.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {[
+        {
+          name: "John Carter",
+          title: "Senior Software Engineer @ Google",
+          skills: ["React", "Node.js", "Leadership"],
+          status: "available",
+          image: "https://randomuser.me/api/portraits/men/75.jpg",
+        },
+        {
+          name: "Sarah Johnson",
+          title: "Corporate Lawyer @ Smith & Co.",
+          skills: ["Corporate Law", "Negotiation", "Mentorship"],
+          status: "matched",
+          image: "https://randomuser.me/api/portraits/women/65.jpg",
+        },
+        {
+          name: "David Lee",
+          title: "Immigration Consultant",
+          skills: ["Immigration", "Policy", "Counseling"],
+          status: "available",
+          image: "https://randomuser.me/api/portraits/men/34.jpg",
+        },
+        // Add more mentors here
+      ].map((mentor, i) => (
+        <div
+          key={i}
+          className="relative bg-white rounded-3xl p-6 border border-gray-200 shadow hover:shadow-lg transition-all duration-300"
+        >
+          {/* Status badge */}
+          <span
+            className={`absolute top-4 right-4 px-3 py-1 rounded-lg text-xs font-semibold ${
+              mentor.status === "available"
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }`}
+          >
+            {mentor.status === "available" ? "Available" : "Matched"}
+          </span>
+
+          {/* Profile */}
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <img
+              src={mentor.image}
+              alt={mentor.name}
+              className="w-20 h-20 rounded-lg border-2 border-gray-300 object-cover"
+            />
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">{mentor.name}</h3>
+              <p className="text-sm text-gray-500">{mentor.title}</p>
+            </div>
+          </div>
+
+          {/* Skills */}
+          <div className="flex flex-wrap justify-center gap-2 mt-4">
+            {mentor.skills.map((skill) => (
+              <span
+                key={skill}
+                className="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-lg border border-gray-300"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+
+          {/* Rating (optional) */}
+          <div className="flex items-center justify-center mt-4 space-x-2">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+            ))}
+            <span className="text-sm text-gray-700">4.8</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+{/* How to Register - Mentorship Page */}
+<section className="relative py-20 bg-black overflow-hidden">
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Section Header */}
+    <div className="text-center mb-16">
+      <h2 className="text-5xl font-bold text-white sm:text-6xl lg:text-7xl">
+        How to Join as a Mentor
+      </h2>
+      <p className="mt-4 text-lg text-gray-300 sm:text-xl max-w-3xl mx-auto">
+        Follow these simple steps to sign up, set your availability, and start mentoring.
+      </p>
+    </div>
+
+    {/* Steps */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      {[
+        {
+          title: "Create Account",
+          description: "Choose a username, provide your full name, email, and location.",
+          icon: "User",
+        },
+        {
+          title: "Upload Headshot",
+          description: "Add a professional photo that will appear on your Mentor Profile.",
+          icon: "Camera",
+        },
+        {
+          title: "Set Area of Practice",
+          description: "Specify your legal expertise to match mentees efficiently.",
+          icon: "Briefcase",
+        },
+        {
+          title: "Set Availability",
+          description: "Indicate your mentorship availability to help us connect you quickly.",
+          icon: "Clock",
+        },
+      ].map((step, idx) => {
+        // Dynamically render Lucide icon
+        const Icon = require("lucide-react")[step.icon];
+        return (
+          <div
+            key={idx}
+            className="relative bg-gray-900/60 backdrop-blur-md rounded-3xl p-8 flex flex-col items-center text-center transition-transform transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/20"
+          >
+            <div className="bg-yellow-500 w-16 h-16 rounded-lg flex items-center justify-center text-black mb-6">
+              <Icon className="w-8 h-8" />
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
+            <p className="text-gray-300">{step.description}</p>
+          </div>
+        );
+      })}
+    </div>
+
+    {/* CTA Button */}
+    <div className="mt-16 text-center">
+      <a
+        href="/register"
+        className="inline-block px-10 py-4 bg-yellow-500 text-black font-bold rounded-lg text-lg hover:bg-yellow-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+      >
+        Sign Up as Mentor
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<FAQSection />
+
+    </div>
   );
 };
 
-export default EduFlexHero;
+export default MentorshipHero;

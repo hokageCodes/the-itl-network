@@ -39,7 +39,7 @@ export default function Navbar() {
       label: "Community",
       auth: true,
       items: [
-        { href: "/membership", label: "Membership" },
+        { href: "/menteeship", label: "Menteeship" },
         { href: "/mentorship", label: "Mentorship" },
         { href: "/donate", label: "Donate" },
       ],
@@ -96,7 +96,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-2 ${
         scrolled
           ? "bg-brand-white-50/95 backdrop-blur-md border-b border-brand-black-200/20 shadow-sm"
           : "bg-brand-black-950"
