@@ -59,16 +59,14 @@ const AboutPage = () => {
             </p>
           </div>
         </section>
-
-        {/* Mission & Vision */}
 {/* Mission & Vision */}
-<section className="relative bg-gradient-to-br from-brand.black.950 via-brand.black.900 to-brand.black.800 rounded-3xl shadow-gold p-12 mb-24 max-w-6xl mx-auto overflow-hidden">
+<section className="relative rounded-3xl shadow-gold mb-24 max-w-6xl mx-auto overflow-hidden">
   {/* Accent Glow */}
   <div className="absolute inset-0 bg-brand.gold.500/5 blur-3xl rounded-3xl pointer-events-none"></div>
 
   <div className="relative grid grid-cols-1 md:grid-cols-2 gap-12">
     {/* Mission */}
-    <div className="bg-brand.black.900/60 backdrop-blur-xs p-8 rounded-2xl border border-brand.gold.500/20 hover:shadow-gold-lg transition-all duration-500 hover:-translate-y-2 animate-slide-up">
+    <div className="p-6 rounded-2xl border border-brand.gold.500/20 hover:shadow-gold-lg transition-all duration-500 hover:-translate-y-2 animate-slide-up">
       <div className="flex items-center mb-4">
         <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand.gold.500 text-brand.black.950 font-extrabold shadow-md mr-4">
           M
@@ -84,7 +82,7 @@ const AboutPage = () => {
     </div>
 
     {/* Vision */}
-    <div className="bg-brand.black.900/60 backdrop-blur-xs p-8 rounded-2xl border border-brand.gold.500/20 hover:shadow-gold-lg transition-all duration-500 hover:-translate-y-2 animate-slide-up delay-200">
+    <div className="p-8 rounded-2xl border border-brand.gold.500/20 transition-all duration-500 hover:-translate-y-2 animate-slide-up delay-200">
       <div className="flex items-center mb-4">
         <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand.gold.500 text-brand.black.950 font-extrabold shadow-md mr-4">
           V
