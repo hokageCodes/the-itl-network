@@ -13,7 +13,13 @@ export default function ITLHeroSection() {
 
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
+  // Safe way to assign refs for floating backgrounds
+  const setFloatingRef = (el, index) => {
+    floatingBgRef.current[index] = el;
+  };
+
   useEffect(() => {
+    // Staggered fade-in for main elements
     const elements = [badgeRef.current, titleRef.current, subtitleRef.current, ctaRef.current];
     elements.forEach((element, index) => {
       if (element) {
@@ -27,81 +33,86 @@ export default function ITLHeroSection() {
       }
     });
 
+    // Animate floating backgrounds
     floatingBgRef.current.forEach((bg, index) => {
-      if (bg) {
-        const animate = () => {
-          bg.style.transition = "transform 3s ease-in-out";
-          bg.style.transform = `translateY(${Math.sin(Date.now() / 1000 + index) * 20}px)`;
-          requestAnimationFrame(animate);
-        };
-        animate();
-      }
+      if (!bg) return; // safety check
+      const animate = () => {
+        const y = Math.sin(Date.now() / 1000 + index) * 20; // sinusoidal movement
+        bg.style.transform = `translateY(${y}px)`;
+        requestAnimationFrame(animate);
+      };
+      animate();
     });
   }, []);
 
   return (
     <div ref={heroRef} className="relative min-h-screen bg-white overflow-hidden">
+      {/* Floating Backgrounds */}
+      <div
+        ref={(el) => setFloatingRef(el, 0)}
+        className="absolute top-0 left-1/4 w-48 h-48 bg-yellow-200 rounded-full opacity-30 blur-3xl"
+      />
+      <div
+        ref={(el) => setFloatingRef(el, 1)}
+        className="absolute top-20 right-1/4 w-72 h-72 bg-yellow-300 rounded-full opacity-20 blur-3xl"
+      />
+      <div
+        ref={(el) => setFloatingRef(el, 2)}
+        className="absolute bottom-10 left-1/3 w-56 h-56 bg-yellow-400 rounded-full opacity-25 blur-3xl"
+      />
+
       {/* Main content */}
-      <div className="relative z-20 container mx-auto sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-36 pb-16 sm:pb-20 lg:pb-28">
-        <div className="text-center max-w-6xl mx-auto">
-          {/* Badge */}
-          <div ref={badgeRef} className="mb-6 sm:mb-8">
-            <span className="inline-flex items-center px-8 py-4 bg-yellow-100/80 text-yellow-700 text-md font-semibold rounded-full border border-yellow-300/50 backdrop-blur-sm shadow-sm">
-              The ITL Network
-            </span>
-          </div>
-
-          {/* Main Heading */}
-          <h1
-            ref={titleRef}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl p-8 font-bold text-black mb-6 sm:mb-8 leading-tight"
-          >
-            A Network of Internationally Trained Lawyers in{" "}
-            <span className="text-yellow-600 relative">
-              Canada
-              <svg
-                className="absolute -bottom-2 left-0 w-full h-3 text-yellow-300/60"
-                viewBox="0 0 200 12"
-                fill="currentColor"
-                preserveAspectRatio="none"
-              >
-                <path d="M0,8 Q50,2 100,8 T200,8 L200,12 L0,12 Z" />
-              </svg>
-            </span>
-          </h1>
-
-          {/* Subtitle */}
-          <p
-            ref={subtitleRef}
-            className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4"
-          >
-            Connect, learn, and grow together with lawyers and professionals
-            shaping the future of legal practice in Canada.
-          </p>
-
-          {/* CTA Buttons */}
-          <div
-            ref={ctaRef}
-            className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8 sm:mb-12 px-4"
-          >
-            <Link
-              href="/register"
-              className="flex items-center px-8 py-4 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+      <div className="text-center max-w-7xl pt-48 mx-auto relative z-10">
+        {/* Main Heading */}
+        <h1
+          ref={titleRef}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl p-8 font-bold text-black mb-6 sm:mb-8 leading-tight"
+        >
+          A Network of Internationally Trained Lawyers in{" "}
+          <span className="text-yellow-600 relative">
+            Canada
+            <svg
+              className="absolute -bottom-2 left-0 w-full h-3 text-yellow-300/60"
+              viewBox="0 0 200 12"
+              fill="currentColor"
+              preserveAspectRatio="none"
             >
-              Become a Member
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
+              <path d="M0,8 Q50,2 100,8 T200,8 L200,12 L0,12 Z" />
+            </svg>
+          </span>
+        </h1>
 
-            <button
-              onClick={() => setIsVideoOpen(true)}
-              className="w-full sm:w-auto flex items-center justify-center space-x-3 text-gray-700 hover:text-yellow-600 transition-colors duration-300 group"
-            >
-              <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center group-hover:shadow-lg transition-all duration-300 border border-yellow-200/30 group-hover:border-yellow-400/50">
-                <Play className="w-5 h-5 text-yellow-600 ml-1" />
-              </div>
-              <span className="font-medium">Watch Intro</span>
-            </button>
-          </div>
+        {/* Subtitle */}
+        <p
+          ref={subtitleRef}
+          className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4"
+        >
+          Connect, learn, and grow together with lawyers and professionals
+          shaping the future of legal practice in Canada.
+        </p>
+
+        {/* CTA Buttons */}
+        <div
+          ref={ctaRef}
+          className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8 sm:mb-12 px-4"
+        >
+          <Link
+            href="/register"
+            className="flex items-center px-8 py-4 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            Become a Member
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Link>
+
+          <button
+            onClick={() => setIsVideoOpen(true)}
+            className="w-full sm:w-auto flex items-center justify-center space-x-3 text-gray-700 hover:text-yellow-600 transition-colors duration-300 group"
+          >
+            <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center group-hover:shadow-lg transition-all duration-300 border border-yellow-200/30 group-hover:border-yellow-400/50">
+              <Play className="w-5 h-5 text-yellow-600 ml-1" />
+            </div>
+            <span className="font-medium">Watch Intro</span>
+          </button>
         </div>
       </div>
 
@@ -115,13 +126,13 @@ export default function ITLHeroSection() {
             >
               <X className="w-8 h-8" />
             </button>
-            <div className="aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden shadow-lg">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/iFqRz9UtuRs?autoplay=1&rel=0"
+                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                src="https://www.youtube.com/embed/0rHqK1gu1Nw?autoplay=1"
                 title="Canadian City Video"
                 frameBorder="0"
-                allow="autoplay; fullscreen"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               />
             </div>

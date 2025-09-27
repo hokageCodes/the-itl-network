@@ -31,13 +31,8 @@ export default function AboutSection() {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    if (cardsRef.current) {
-      cardsObserver.observe(cardsRef.current);
-    }
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    if (cardsRef.current) cardsObserver.observe(cardsRef.current);
 
     return () => {
       observer.disconnect();
@@ -51,55 +46,24 @@ export default function AboutSection() {
       className="relative bg-white py-12 sm:py-16 transition-all duration-1000"
     >
       <div className="container mx-auto px-2 md:px-12 space-y-16">
-        {/* Header with staggered animations */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 items-start mx-auto">
-          {/* Left: Title + CTA */}
-          <div 
-            className={`xl:col-span-1 space-y-6 transform transition-all duration-1000 ease-out ${
-              visible ? "opacity-100 translate-y-0 translate-x-0" : "opacity-0 translate-y-10 -translate-x-8"
-            }`}
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-              Who We Are
-            </h2>
-            <Link
-              href="/about"
-              className="flex items-center w-[150px] px-4 py-4 min-h-[44px] bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-300 whitespace-nowrap text-base shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1"
-            >
-              Learn more
-              <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
-
-          {/* Right: Description */}
-          <div 
-            className={`xl:col-span-2 transform transition-all duration-1200 delay-200 ease-out ${
-              visible ? "opacity-100 translate-y-0 translate-x-0" : "opacity-0 translate-y-10 translate-x-8"
-            }`}
-          >
-            <p className="text-lg text-gray-600 leading-relaxed">
-              The ITL Network is a registered not-for-profit organization under
-              the Canada Not-for-profit Corporations Act. Our mission is to
-              advance diversity, equity, and inclusion within the Canadian legal
-              profession by supporting Internationally Trained Lawyers (ITLs)
-              and Internationally Trained Law Graduates (ITLGs) at every stage
-              of their professional journey. We provide guidance through the
-              licensing process, mentorship for practicing lawyers, and
-              resources to foster career growth, leadership development, and the
-              building of sustainable legal practices. Through a strong and
-              connected community, we are committed to creating equitable access
-              to opportunities and strengthening the future of the profession.
-            </p>
-          </div>
+        {/* Centered Header */}
+        <div
+          className={`text-center transform transition-all duration-1000 ease-out ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mx-auto">
+            Who We Are
+          </h2>
         </div>
 
-        {/* Cards grid with individual staggered animations */}
+        {/* Cards grid */}
         <div
           ref={cardsRef}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 mx-auto"
         >
           {/* Our Story card */}
-          <div 
+          <div
             className={`relative rounded-2xl overflow-hidden h-80 lg:h-[420px] transition-all duration-1000 ease-out hover:scale-[1.02] hover:shadow-2xl hover:-translate-y-2 ${
               cardsVisible ? "opacity-100 translate-y-0 rotate-0" : "opacity-0 translate-y-12 -rotate-2"
             }`}
@@ -127,14 +91,12 @@ export default function AboutSection() {
           {/* Mission + Vision stacked */}
           <div className="flex flex-col gap-6">
             {/* Mission */}
-            <div 
+            <div
               className={`border-2 bg-yellow-100/80 rounded-2xl p-6 flex-1 flex flex-col justify-center transition-all duration-1200 delay-300 ease-out hover:scale-[1.02] hover:shadow-lg hover:-translate-y-1 ${
                 cardsVisible ? "opacity-100 translate-y-0 translate-x-0" : "opacity-0 translate-y-8 translate-x-6"
               }`}
             >
-              <h3 className="text-black font-bold text-lg mb-3">
-                Our Mission
-              </h3>
+              <h3 className="text-black font-bold text-lg mb-3">Our Mission</h3>
               <p className="text-gray-700 text-md leading-relaxed">
                 To advance diversity, equity, and inclusion within the Canadian
                 legal profession by supporting Internationally Trained Lawyers
@@ -147,14 +109,12 @@ export default function AboutSection() {
             </div>
 
             {/* Vision */}
-            <div 
+            <div
               className={`border-2 bg-yellow-500 rounded-2xl p-6 flex-1 flex flex-col justify-center transition-all duration-1400 delay-500 ease-out hover:scale-[1.02] hover:shadow-lg hover:-translate-y-1 ${
                 cardsVisible ? "opacity-100 translate-y-0 translate-x-0" : "opacity-0 translate-y-8 translate-x-6"
               }`}
             >
-              <h3 className="text-black font-bold text-lg mb-3">
-                Our Vision
-              </h3>
+              <h3 className="text-black font-bold text-lg mb-3">Our Vision</h3>
               <p className="text-gray-900 text-md leading-relaxed">
                 A legal profession in Canada that reflects the richness of
                 global perspectives, where internationally trained talent is
@@ -163,6 +123,17 @@ export default function AboutSection() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* CTA at the end of section */}
+        <div className="flex justify-center mt-12">
+          <Link
+            href="/about"
+            className="flex items-center w-[180px] px-6 py-4 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1"
+          >
+            Learn More
+            <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>

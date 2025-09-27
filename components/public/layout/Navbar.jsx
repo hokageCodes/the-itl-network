@@ -39,7 +39,7 @@ export default function Navbar() {
       label: "Community",
       auth: true,
       items: [
-        { href: "/menteeship", label: "Menteeship" },
+        { href: "/membership", label: "Membership" },
         { href: "/mentorship", label: "Mentorship" },
         { href: "/donate", label: "Donate" },
       ],
