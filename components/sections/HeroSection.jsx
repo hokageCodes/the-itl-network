@@ -42,7 +42,7 @@ export default function ITLHeroSection() {
   return (
     <div ref={heroRef} className="relative min-h-screen bg-white overflow-hidden">
       {/* Main content */}
-      <div className="relative z-20 container mx-auto sm:px-6 lg:px-8 pt-20 sm:pt-36 lg:pt-36 pb-16 sm:pb-20 lg:pb-28">
+      <div className="relative z-20 container mx-auto sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-36 pb-16 sm:pb-20 lg:pb-28">
         <div className="text-center max-w-6xl mx-auto">
           {/* Badge */}
           <div ref={badgeRef} className="mb-6 sm:mb-8">

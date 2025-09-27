@@ -32,6 +32,7 @@ export default function Navbar() {
         { href: "/about", label: "About" },
         { href: "/our-team", label: "Our Team" },
         { href: "/events", label: "Events" },
+        { href: "/contact", label: "Contact Us" },
       ],
     },
     {
@@ -46,8 +47,10 @@ export default function Navbar() {
     {
       label: "Resources",
       items: [
-        { href: "/resources", label: "Blog", auth: true },
-        { href: "/contact", label: "Contact" },
+        { href: "#", label: "NCA Exams Resources", auth: true },
+        { href: "##", label: "Articling Resources", auth: true },
+        { href: "####", label: "Fiancial Resources", auth: true },
+        { href: "#####", label: "Professional Development", auth: true },
       ],
     },
   ];
