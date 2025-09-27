@@ -33,7 +33,7 @@ export default function WhyJoinUsSection() {
           <h2 className="text-4xl lg:text-6xl font-bold text-black mb-6">
             Why Join Us?
           </h2>
-          <p className="text-black-400 text-lg max-w-3xl mx-auto">
+          <p className="text-black-400 text-xl max-w-3xl mx-auto">
             A clear, supportive path to advancing your legal career in Canada.
           </p>
           <div className="w-24 h-1 bg-gray-700 mx-auto mt-6"></div>

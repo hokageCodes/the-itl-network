@@ -199,11 +199,11 @@ export default function ExecutiveTeamSection() {
                       <div className="space-y-4 bg-black/95 border-4 border-yellow-500 p-6 rounded-xl backdrop-blur-sm">
                         <div>
                           <h3 className="text-white font-bold text-2xl mb-2">{executive.name}</h3>
-                          <p className="text-yellow-400 font-semibold text-sm uppercase tracking-wide border-b-2 border-yellow-500 pb-1 inline-block">
+                          <p className="text-yellow-400 font-semibold text-lg uppercase tracking-wide border-b-2 border-yellow-500 pb-1 inline-block">
                             {executive.role}
                           </p>
                         </div>
-                        <p className="text-gray-300 text-sm leading-relaxed">
+                        <p className="text-gray-300 text-md leading-relaxed">
                           {executive.bio}
                         </p>
                       </div>

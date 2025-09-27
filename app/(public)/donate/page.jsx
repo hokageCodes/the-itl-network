@@ -5,7 +5,6 @@ import { useState } from "react";
 const DonateSection = () => {
   const [amount, setAmount] = useState(50);
   const [customAmount, setCustomAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("test");
   const [loading, setLoading] = useState(false);
 
   const amounts = [25, 50, 75, 100, 200];
@@ -17,167 +16,150 @@ const DonateSection = () => {
 
   const handleCustomChange = (e) => {
     setCustomAmount(e.target.value);
-    setAmount("");
+    setAmount(0);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setLoading(true);
 
+    const firstName = (document.querySelector(
+      'input[name="firstName"]'
+    ))?.value;
+    const lastName = (document.querySelector(
+      'input[name="lastName"]'
+    ))?.value;
+    const email = (document.querySelector(
+      'input[name="email"]'
+    ))?.value;
+
     const donationData = {
-      amount: Number(customAmount || amount),
-      paymentMethod,
-      firstName: e.target.firstName.value,
-      lastName: e.target.lastName.value,
-      email: e.target.email.value,
+      amount: (customAmount || amount),
+      firstName,
+      lastName,
+      email,
     };
 
-    console.log("🚀 Donation initiated:", donationData);
-
     try {
-      if (paymentMethod === "test") {
-        alert(
-          `Pretend we are redirecting to ${paymentMethod} for $${donationData.amount}`
-        );
-      } else if (paymentMethod === "offline") {
-        alert("Offline donation recorded. We will contact you soon.");
-      }
+      const res = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(donationData),
+      });
+
+      const { url } = await res.json();
+      window.location.href = url;
     } catch (err) {
-      console.error("Payment failed", err);
+      console.error("Stripe checkout failed", err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main>
-      {/* 🌟 Hero Banner */}
-      <section className="relative bg-black text-white py-48 text-center">
-        <div className="max-w-4xl mx-auto px-2">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
-            Transform Lives with Your Donation
+    <main className="min-h-screen text-brand-white-50">
+      {/* Hero */}
+      <section className="pt-32 text-center">
+        <div className="max-w-3xl mx-auto px-2">
+          <h1 className="text-5xl md:text-6xl font-bold text-black mb-6">
+            Make A Positive Impact Today!
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
+          <p className="text-xl text-gray-600 font-medium">
             Every contribution helps us empower communities, provide education,
             and create a brighter future.
           </p>
         </div>
       </section>
 
-      {/* 💳 Donation Form Section */}
-      <section className="max-w-3xl mx-auto px-4 py-20 -mt-24 relative z-10">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Donate Now
-          </h2>
+      {/* Donation Form */}
+      <section className="py-20 px-2">
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-brand-black-900 border border-brand-black-700 rounded-xl p-10">
+            <h2 className="text-3xl font-semibold text-center text-brand-white-100 mb-8">
+              Make Your Impact
+            </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Amount Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Select Amount
-              </label>
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-                {amounts.map((val) => (
-                  <button
-                    key={val}
-                    type="button"
-                    onClick={() => handleAmountClick(val)}
-                    className={`px-4 py-2 rounded-lg border text-sm font-medium transition ${
-                      amount === val
-                        ? "bg-brand-gold text-white border-brand-gold"
-                        : "border-gray-300 text-gray-700 hover:border-brand-gold hover:text-brand-gold"
-                    }`}
-                  >
-                    ${val}
-                  </button>
-                ))}
+            <div className="space-y-8">
+              {/* Amount Selection */}
+              <div>
+                <label className="block text-sm font-medium text-brand-white-400 mb-3">
+                  Select Amount
+                </label>
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                  {amounts.map((val) => (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => handleAmountClick(val)}
+                      className={`px-4 py-3 rounded-xl font-medium transition ${
+                        amount === val
+                          ? "bg-brand-gold-500 text-brand-black-50 shadow-gold"
+                          : "bg-brand-black-800 text-brand-white-300 hover:bg-brand-black-700 border border-brand-black-600"
+                      }`}
+                    >
+                      ${val}
+                    </button>
+                  ))}
+                  <input
+                    type="number"
+                    placeholder="Custom"
+                    value={customAmount}
+                    onChange={handleCustomChange}
+                    className="col-span-2 sm:col-span-1 px-3 py-3 bg-brand-black-800 border border-brand-black-600 rounded-xl text-brand-white-200 placeholder-brand-white-400 focus:ring-brand-gold-500 focus:border-brand-gold-500"
+                  />
+                </div>
+              </div>
+
+              {/* Personal Info */}
+              <div>
+                <label className="block text-sm font-medium text-brand-white-400 mb-3">
+                  Your Information
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    className="px-4 py-3 bg-brand-black-800 border border-brand-black-600 rounded-xl text-brand-white-200 placeholder-brand-white-400 focus:ring-brand-gold-500 focus:border-brand-gold-500"
+                    required
+                  />
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    className="px-4 py-3 bg-brand-black-800 border border-brand-black-600 rounded-xl text-brand-white-200 placeholder-brand-white-400 focus:ring-brand-gold-500 focus:border-brand-gold-500"
+                    required
+                  />
+                </div>
                 <input
-                  type="number"
-                  placeholder="Custom"
-                  value={customAmount}
-                  onChange={handleCustomChange}
-                  className="col-span-2 sm:col-span-1 px-3 py-2 border rounded-lg text-sm focus:ring-brand-gold focus:border-brand-gold"
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  className="mt-4 w-full px-4 py-3 bg-brand-black-800 border border-brand-black-600 rounded-xl text-brand-white-200 placeholder-brand-white-400 focus:ring-brand-gold-500 focus:border-brand-gold-500"
+                  required
                 />
               </div>
-            </div>
 
-            {/* Payment Method */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Select Payment Method
-              </label>
-              <div className="flex items-center gap-6">
-                <label className="flex items-center gap-2 text-sm text-gray-700">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="test"
-                    checked={paymentMethod === "test"}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="text-brand-gold focus:ring-brand-gold"
-                  />
-                  Test Donation
-                </label>
-                <label className="flex items-center gap-2 text-sm text-gray-700">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="offline"
-                    checked={paymentMethod === "offline"}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="text-brand-gold focus:ring-brand-gold"
-                  />
-                  Offline Donation
-                </label>
+              {/* Submit Button */}
+              <div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  onClick={handleSubmit}
+                  className="w-full py-4 rounded-xl font-semibold text-lg bg-brand-gold-500 text-brand-black-950 hover:bg-brand-gold-600 transition disabled:opacity-50 shadow-gold"
+                >
+                  {loading ? "Processing..." : "Donate Now"}
+                </button>
               </div>
-            </div>
 
-            {/* Personal Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                className="px-3 py-2 border rounded-lg text-sm focus:ring-brand-gold focus:border-brand-gold"
-                required
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                className="px-3 py-2 border rounded-lg text-sm focus:ring-brand-gold focus:border-brand-gold"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                className="sm:col-span-2 px-3 py-2 border rounded-lg text-sm focus:ring-brand-gold focus:border-brand-gold"
-                required
-              />
+              {/* Security Notice */}
+              <p className="text-sm text-center text-brand-white-400">
+                🔒 Secured by Stripe • Your information is protected
+              </p>
             </div>
-
-            {/* Submit */}
-            <div className="pt-4">
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-brand-gold hover:opacity-90 text-white py-3 rounded-lg font-semibold transition disabled:opacity-50"
-              >
-                {loading ? "Processing..." : "Donate Now"}
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
       </section>
-
-      {/* FAQ Section */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <FAQSection />
-        </div>
-      </section>
+      <FAQSection />
     </main>
   );
 };

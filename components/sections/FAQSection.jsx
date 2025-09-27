@@ -62,7 +62,7 @@ export default function FAQSection() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-6xl font-bold mb-6">FAQs</h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-xl">
             Frequently asked questions about the ITL Network
           </p>
           <div className="w-24 h-1 bg-brand-gold-500 mx-auto mt-6"></div>

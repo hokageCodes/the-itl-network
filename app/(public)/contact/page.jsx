@@ -1,12 +1,10 @@
 "use client";
 import { useState } from "react";
-import { MapPin, Phone, Mail, Send } from "lucide-react";
-import FAQSection from "../../../components/sections/FAQSection";
 
-const ContactPage = () => {
+export default function ContactPage() {
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -17,118 +15,111 @@ const ContactPage = () => {
       message: e.target.message.value,
     };
 
-    console.log("📩 Contact form submitted:", formData);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    // placeholder
-    setTimeout(() => {
-      alert("Message sent (demo only)");
+      if (!res.ok) throw new Error("Failed to send");
+
+      alert("Message sent successfully!");
+      e.target.reset();
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong, please try again.");
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
-    <main className="bg-white">
-      {/* Hero Banner */}
-      <section className="relative h-64 bg-black flex items-center justify-center text-white py-48">
-        <h1 className="text-4xl font-extrabold">Contact Us</h1>
+    <main className="min-h-screen text-brand-white-50">
+      {/* Hero */}
+      <section className="pt-32 pb-12 px-2 text-center">
+        <h1 className="text-5xl font-bold text-black">Contact Us</h1>
+        <p className="mt-4 text-xl text-gray-700 max-w-2xl mx-auto">
+          Have questions, feedback, or partnership opportunities? We’d love to hear from you.
+        </p>
       </section>
 
-      {/* Contact Info + Form */}
-      <section className="max-w-6xl mx-auto px-6 py-48 grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Info Side */}
-        <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            We are always ready to help you
-          </h2>
-          <p className="text-gray-600">
-            Have questions, ideas, or need assistance? Reach out to our team —
-            we’d love to hear from you.
-          </p>
-
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 text-gray-700">
-              <Phone className="w-5 h-5 text-brand-gold" />
-              <span>+1 (234) 567 890</span>
-            </div>
-            <div className="flex items-center gap-3 text-gray-700">
-              <Mail className="w-5 h-5 text-brand-gold" />
-              <span>contact@itl.org</span>
-            </div>
-            <div className="flex items-center gap-3 text-gray-700">
-              <MapPin className="w-5 h-5 text-brand-gold" />
-              <span>152 W 42nd Street, New York, NY</span>
-            </div>
+      {/* Content */}
+      <section className="py-16 px-6 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+        {/* Contact Info */}
+        <div className="space-y-8">
+          <div>
+            <h2 className="text-2xl font-semibold text-black mb-2">Our Office</h2>
+            <p className="text-gray-700 text-lg">
+              Toronto, Ontario, Canada
+            </p>
           </div>
 
-          {/* Socials */}
-          <div className="flex gap-4 pt-4">
-            <a href="#" className="text-gray-500 hover:text-brand-gold">Fb</a>
-            <a href="#" className="text-gray-500 hover:text-brand-gold">X</a>
-            <a href="#" className="text-gray-500 hover:text-brand-gold">In</a>
+          <div>
+            <h2 className="text-2xl font-semibold text-black mb-2">Email</h2>
+            <p>
+              <a href="mailto:info@itlnetwork.org" className="text-gray-700 text-lg transition">
+                info@itlnetwork.org
+              </a>
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-semibold text-black mb-2">Social</h2>
+            <div className="flex gap-4 underline">
+              <a href="#" className="text-gray-700 text-lg trasnition">LinkedIn</a>
+              <a href="#" className="text-gray-700 text-lg trasnition">Twitter</a>
+              <a href="#" className="text-gray-700 text-lg trasnition">Instagram</a>
+            </div>
           </div>
         </div>
 
-        {/* Form Side */}
-        <form
-          onSubmit={handleSubmit}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8 shadow-sm space-y-6"
-        >
-          <h3 className="text-xl font-semibold text-gray-800">Get in Touch</h3>
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            className="w-full px-4 py-3 border rounded-lg focus:ring-brand-gold focus:border-brand-gold text-sm"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            className="w-full px-4 py-3 border rounded-lg focus:ring-brand-gold focus:border-brand-gold text-sm"
-            required
-          />
-          <input
-            type="text"
-            name="subject"
-            placeholder="Subject"
-            className="w-full px-4 py-3 border rounded-lg focus:ring-brand-gold focus:border-brand-gold text-sm"
-          />
-          <textarea
-            name="message"
-            rows="4"
-            placeholder="Message"
-            className="w-full px-4 py-3 border rounded-lg focus:ring-brand-gold focus:border-brand-gold text-sm"
-            required
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-brand-gold hover:opacity-90 text-white py-3 rounded-lg font-semibold transition disabled:opacity-50"
+        {/* Form */}
+        <div className="lg:col-span-2">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-brand-black-900 p-8 rounded-2xl shadow-gold space-y-6 border border-brand-black-700"
           >
-            <Send className="w-4 h-4" />
-            {loading ? "Sending..." : "Send Message"}
-          </button>
-        </form>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                required
+                className="w-full px-4 py-3 rounded-lg bg-brand-black-800 border border-brand-black-600 text-brand-white-50 placeholder-brand-white-400 focus:ring-2 focus:ring-brand-gold-500 focus:outline-none"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+                className="w-full px-4 py-3 rounded-lg bg-brand-black-800 border border-brand-black-600 text-brand-white-50 placeholder-brand-white-400 focus:ring-2 focus:ring-brand-gold-500 focus:outline-none"
+              />
+            </div>
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              required
+              className="w-full px-4 py-3 rounded-lg bg-brand-black-800 border border-brand-black-600 text-brand-white-50 placeholder-brand-white-400 focus:ring-2 focus:ring-brand-gold-500 focus:outline-none"
+            />
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              required
+              rows="6"
+              className="w-full px-4 py-3 rounded-lg bg-brand-black-800 border border-brand-black-600 text-brand-white-50 placeholder-brand-white-400 focus:ring-2 focus:ring-brand-gold-500 focus:outline-none"
+            ></textarea>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-4 font-semibold text-lg bg-brand-gold-500 text-brand-black-950 rounded-lg hover:bg-brand-gold-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Sending..." : "Send Message"}
+            </button>
+          </form>
+        </div>
       </section>
-
-      {/* Map Section (static for now) */}
-      {/* <section className="h-80 bg-gray-200">
-        <iframe
-          title="Google Map"
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          loading="lazy"
-          allowFullScreen
-          src="https://www.google.com/maps/embed/v1/place?q=New+York&key=YOUR_API_KEY"
-        ></iframe>
-      </section> */}
-      <div className="-mt-24">
-        <FAQSection />
-      </div>
     </main>
   );
-};
-
-export default ContactPage;
+}

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Amarante&family=Orbitron:wght@400..900&family=Quintessential&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Quintessential&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 @tailwind base;
 @tailwind components;
@@ -16,7 +17,7 @@ h1, h2, h3, h4, h5, h6, span {
 }
 
 p, a {
-  font-family: "Sue Ellen Francisco", cursive;
+  font-family: "Raleway", san
 }
 
 

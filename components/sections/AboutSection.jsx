@@ -110,9 +110,9 @@ export default function AboutSection() {
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end">
-              <div className="p-6 sm:p-8 transform transition-all duration-500 hover:translate-y-[-4px]">
+              <div className="bg-black/60 rounded-md p-6 sm:p-8 transform transition-all duration-500 hover:translate-y-[-4px]">
                 <h3 className="text-white font-bold text-xl mb-2">Our Story</h3>
-                <p className="text-white/90 text-sm max-w-md leading-relaxed">
+                <p className="text-white/90 text-md max-w-md leading-relaxed">
                   The ITL Network was established as a registered not-for-profit
                   under the Canada Not-for-profit Corporations Act to respond to
                   the unique challenges faced by internationally trained legal
@@ -135,7 +135,7 @@ export default function AboutSection() {
               <h3 className="text-black font-bold text-lg mb-3">
                 Our Mission
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-md leading-relaxed">
                 To advance diversity, equity, and inclusion within the Canadian
                 legal profession by supporting Internationally Trained Lawyers
                 (ITLs) and Internationally Trained Law Graduates (ITLGs) at
@@ -155,7 +155,7 @@ export default function AboutSection() {
               <h3 className="text-black font-bold text-lg mb-3">
                 Our Vision
               </h3>
-              <p className="text-gray-900 text-sm leading-relaxed">
+              <p className="text-gray-900 text-md leading-relaxed">
                 A legal profession in Canada that reflects the richness of
                 global perspectives, where internationally trained talent is
                 fully integrated, valued, and empowered to thrive, contribute,
