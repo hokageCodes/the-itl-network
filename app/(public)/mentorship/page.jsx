@@ -196,6 +196,14 @@ const MentorshipHero = () => {
       ))}
     </div>
   </div>
+  <div className="mt-16 text-center">
+            <a
+              href="/register"
+              className="inline-block px-10 py-4 bg-yellow-500 text-black font-bold rounded-lg text-lg hover:bg-yellow-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              Become a Mentor
+            </a>
+          </div>
 </section>
 
 

@@ -91,9 +91,10 @@ export default function ITLConferencePage() {
 
       {/* Parallax Section */}
       <section
-        className="relative h-[60vh] bg-fixed bg-center bg-contain"
-        style={{ backgroundImage: "url('/itlscreen.png')" }}
+        className="relative h-[60vh] bg-fixed bg-center bg-cover"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1560653764-c59462f913d3?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHRvcm9udG8lMjBza3lsaW5lfGVufDB8fDB8fHww')" }}
       >
+
         <div className="absolute inset-0 bg-black/8"></div>
       </section>
 
@@ -105,82 +106,42 @@ export default function ITLConferencePage() {
             </h2>
 
             {/* Stopwatch Row with Colons */}
-            <div className="flex justify-center items-center space-x-4 sm:space-x-6 lg:space-x-8 max-w-5xl mx-auto">
-                {[
-                { value: timeLeft.days.toString().padStart(2, "0"), label: "DAYS" },
-                { value: timeLeft.hours.toString().padStart(2, "0"), label: "HOURS" },
-                { value: timeLeft.minutes.toString().padStart(2, "0"), label: "MINUTES" },
-                { value: timeLeft.seconds.toString().padStart(2, "0"), label: "SECONDS" },
-                ].map((item, index) => {
-                const isDays = index === 0;
-
-                return (
-                    <React.Fragment key={index}>
-                    {/* Timer Box */}
-                    <div className="group">
-                        <div className="relative transform-gpu perspective-1000">
-                        <div
-                            className={`relative border-2 transition-all duration-500 transform ${
-                            isDays
-                                ? "bg-black border-brand-gold-500 shadow-gold-lg -translate-y-3"
-                                : "bg-black border-zinc-700 hover:border-brand-gold-500 hover:-translate-y-3 hover:shadow-gold-lg"
-                            }`}
-                        >
-                            {/* Top edge */}
-                            <div
-                            className={`absolute inset-x-0 -top-1 h-1 transform -skew-x-12 transition-colors duration-500 ${
-                                isDays ? "bg-brand-gold-400" : "bg-zinc-600 group-hover:bg-brand-gold-400"
-                            }`}
-                            ></div>
-                            {/* Right edge */}
-                            <div
-                            className={`absolute -right-1 inset-y-0 w-1 transform skew-y-12 transition-colors duration-500 ${
-                                isDays ? "bg-brand-gold-400" : "bg-zinc-600 group-hover:bg-brand-gold-400"
-                            }`}
-                            ></div>
-
-                            {/* Content */}
-                            <div className="px-6 py-8 sm:px-8 sm:py-12">
-                            <div
-                                className={`text-5xl sm:text-6xl lg:text-7xl font-black mb-2 tracking-tighter transition-colors duration-300 ${
-                                isDays
-                                    ? "text-brand-gold-400"
-                                    : "text-white group-hover:text-brand-gold-400"
-                                }`}
-                            >
-                                {item.value}
-                            </div>
-                            <div
-                                className={`text-xs sm:text-sm font-bold tracking-widest uppercase transition-colors duration-300 ${
-                                isDays
-                                    ? "text-brand-gold-200"
-                                    : "text-zinc-400 group-hover:text-zinc-200"
-                                }`}
-                            >
-                                {item.label}
-                            </div>
-                            </div>
-
-                            {/* Inner glow */}
-                            <div
-                            className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
-                                isDays ? "bg-brand-gold-500/10 opacity-100" : "bg-brand-gold-500/10 opacity-0 group-hover:opacity-100"
-                            }`}
-                            ></div>
-                        </div>
-                        </div>
-                    </div>
-
-                    {/* Add colon between boxes, except last one */}
-                    {index < 3 && (
-                        <div className="text-5xl sm:text-6xl lg:text-7xl font-black text-brand-gold-500 select-none">
-                        :
-                        </div>
-                    )}
-                    </React.Fragment>
-                );
-                })}
+{/* Stopwatch Row */}
+<div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
+  {[
+    { value: timeLeft.days.toString().padStart(2, "0"), label: "DAYS" },
+    { value: timeLeft.hours.toString().padStart(2, "0"), label: "HOURS" },
+    { value: timeLeft.minutes.toString().padStart(2, "0"), label: "MINUTES" },
+    { value: timeLeft.seconds.toString().padStart(2, "0"), label: "SECONDS" },
+  ].map((item, index) => {
+    const isDays = index === 0;
+    return (
+      <React.Fragment key={index}>
+        <div className="flex flex-col items-center min-w-[65px] sm:min-w-[75px]">
+          <div
+            className={`relative border-2 w-full text-center transition-all duration-500 transform px-4 py-6 sm:px-6 sm:py-8 ${
+              isDays
+                ? "bg-black border-yellow-500 shadow-lg -translate-y-2"
+                : "bg-black border-zinc-700 hover:border-yellow-500 hover:-translate-y-2 hover:shadow-lg"
+            }`}
+          >
+            <div className={`text-3xl sm:text-5xl font-black mb-2 ${isDays ? "text-yellow-500" : "text-white group-hover:text-yellow-500"}`}>
+              {item.value}
             </div>
+            <div className="text-xs sm:text-sm font-bold uppercase text-gray-400">
+              {item.label}
+            </div>
+          </div>
+        </div>
+
+        {index < 3 && (
+          <div className="text-3xl sm:text-5xl font-black text-yellow-500 select-none">:</div>
+        )}
+      </React.Fragment>
+    );
+  })}
+</div>
+
 
             {/* Accent line */}
             <div className="w-32 h-px bg-zinc-700 mx-auto mt-12"></div>
@@ -216,21 +177,25 @@ export default function ITLConferencePage() {
       </section>
 
       {/* Optional Second Parallax */}
-      {/* Final Parallax CTA */}
-<section
-  className="relative h-[70vh] bg-fixed bg-center bg-cover flex items-center justify-center text-center"
-  style={{ backgroundImage: "url('/confe.webp')" }}
->
-  {/* Dark overlay for readability */}
-  <div className="absolute inset-0 bg-black/60"></div>
+<section className="relative h-[70vh] w-full overflow-hidden flex items-center justify-center text-center bg-black">
+  {/* Parallax background */}
+  <div
+    className="absolute inset-0 bg-center bg-cover bg-no-repeat"
+    style={{
+      backgroundImage: "url('/confe.webp')",
+      backgroundAttachment: "fixed",
+    }}
+  >
+    <div className="absolute inset-0 bg-black/40"></div>
+  </div>
 
-  {/* CTA Content */}
+  {/* Content */}
   <div className="relative z-10 px-6">
     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
       Don’t miss the upcoming Conference
     </h2>
     <p className="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto mb-10 leading-relaxed">
-      Be part of a global movement — network, learn, and contribute to building stronger communities.
+      Be part of a global movement — network, learn, and contribute.
     </p>
     <Link
       href="/register"
@@ -241,6 +206,8 @@ export default function ITLConferencePage() {
     </Link>
   </div>
 </section>
+
+
 
     </main>
   );

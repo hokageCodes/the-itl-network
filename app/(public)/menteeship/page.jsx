@@ -24,7 +24,7 @@ const MenteeHero = () => {
               {/* Search */}
               <div className="relative mt-8 sm:mt-12 max-w-2xl mx-auto">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-6">
-                  <Search className="w-5 h-5 text-gray-500" />
+                  {/* <Search className="w-5 h-5 text-gray-500" /> */}
                 </div>
                 <input
                   type="text"
