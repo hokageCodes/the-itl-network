@@ -30,7 +30,7 @@ export default function Navbar() {
       items: [
         { href: "/", label: "Home" },
         { href: "/about", label: "About" },
-        { href: "/#", label: "Our Team" },
+        { href: "/our-team", label: "Our Team" },
         { href: "/events", label: "Events" },
       ],
     },
