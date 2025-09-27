@@ -100,11 +100,11 @@ export default function OurTeam() {
           </div>
 
           {/* Text */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <div className="absolute bottom-0 left-0 right-0 p-6 z-10 bg-black/40">
             <h3 className="text-xl font-bold">{member.name}</h3>
             <p className="text-sm text-gray-300">{member.role}</p>
             {member.bio && (
-              <p className="text-xs mt-2 text-gray-400">{member.bio}</p>
+              <p className="text-xs mt-2 text-gray-200 underline">{member.bio}</p>
             )}
           </div>
         </motion.div>

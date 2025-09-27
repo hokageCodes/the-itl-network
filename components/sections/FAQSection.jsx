@@ -73,13 +73,13 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg bg-white shadow-sm flex flex-col"
+              className="border border-gray-400 rounded-lg bg-white shadow-sm flex flex-col"
             >
               <button
                 onClick={() => toggle(index)}
-                className="w-full flex justify-between items-center text-left p-6 focus:outline-none"
+                className="w-full flex justify-between items-center text-left text- p-6 focus:outline-none"
               >
-                <span className="text-lg font-medium">{faq.question}</span>
+                <span className="text-lg font-semibold">{faq.question}</span>
                 <span className="ml-4 text-brand-gold-500 text-xl">
                   {openIndex === index ? "−" : "+"}
                 </span>

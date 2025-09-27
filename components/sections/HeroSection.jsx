@@ -42,8 +42,8 @@ export default function ITLHeroSection() {
   return (
     <div ref={heroRef} className="relative min-h-screen bg-white overflow-hidden">
       {/* Main content */}
-      <div className="relative z-20 container mx-auto px-2 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-48 pb-16 sm:pb-20 lg:pb-28">
-        <div className="text-center max-w-5xl mx-auto">
+      <div className="relative z-20 container mx-auto sm:px-6 lg:px-8 pt-20 sm:pt-36 lg:pt-36 pb-16 sm:pb-20 lg:pb-28">
+        <div className="text-center max-w-6xl mx-auto">
           {/* Badge */}
           <div ref={badgeRef} className="mb-6 sm:mb-8">
             <span className="inline-flex items-center px-8 py-4 bg-yellow-100/80 text-yellow-700 text-md font-semibold rounded-full border border-yellow-300/50 backdrop-blur-sm shadow-sm">
@@ -54,7 +54,7 @@ export default function ITLHeroSection() {
           {/* Main Heading */}
           <h1
             ref={titleRef}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-6 sm:mb-8 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl p-8 font-bold text-black mb-6 sm:mb-8 leading-tight"
           >
             A Network of Internationally Trained Lawyers in{" "}
             <span className="text-yellow-600 relative">

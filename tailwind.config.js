@@ -102,11 +102,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui"],
-        serif: ["Merriweather", "ui-serif", "Georgia"],
-        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular"],
-        display: ["Playfair Display", "ui-serif", "Georgia"],
+        orbitron: ["Orbitron", "sans-serif"],
       },
+
       fontSize: {
         // Typography Scale
         'xs': ['0.75rem', { lineHeight: '1rem' }],
